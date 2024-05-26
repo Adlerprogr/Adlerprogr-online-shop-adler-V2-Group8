@@ -87,6 +87,15 @@
 
 <style>
 
+    BODY {
+        height: 100vh;
+        margin: 0;
+        background-color: rgb(123, 188, 214);
+        background-image: url(https://farm5.staticflickr.com/4249/35281380986_5cef9305f8_o.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
     #cart {
         max-width: 1440px;
         padding-top: 60px;

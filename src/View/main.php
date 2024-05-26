@@ -6,20 +6,20 @@
     <div class="product">
 
         <figure class="product__img">
-            <img src="https://i.pinimg.com/originals/b5/b6/35/b5b635a609c193b94eb15937bb290f5e.jpg" class="js-product-img" />
+            <img src="https://i.pinimg.com/736x/8b/92/b6/8b92b6b35c2cde78a44370dad8a7e743.jpg" class="js-product-img" />
         </figure>
 
         <div class="product__body">
             <div class="product__thumbnails js-product-thumbnails">
-                <a href="#x" class="product__thumbnail"><img src="https://mykaleidoscope.ru/x/uploads/posts/2023-05/1685104842_mykaleidoscope-ru-p-stil-odezhdi-estetika-krasivo-50.jpg" /></a>
-                <a href="#x" class="product__thumbnail"><img src="https://balthazar.club/uploads/posts/2023-01/1674311624_balthazar-club-p-estetika-sinyaya-odezhda-pinterest-85.jpg" /></a>
-                <a href="#x" class="product__thumbnail product__thumbnail--active"><img src="https://garnil.club/uploads/posts/2023-02/1677252954_garnil-club-p-koreiskii-stil-zhenskoi-odezhdi-moda-insta-21.jpg" /></a>
+                <a href="#x" class="product__thumbnail"><img src="https://i.pinimg.com/564x/38/79/29/38792989a28501f2568c57e8efb7c1c2.jpg" /></a>
+                <a href="#x" class="product__thumbnail"><img src="https://i.pinimg.com/564x/d1/c3/fb/d1c3fbf6865b0805a5fbabf7b00e41e8.jpg" /></a>
+                <a href="#x" class="product__thumbnail product__thumbnail--active"><img src="https://i.pinimg.com/564x/f3/97/1e/f3971e449a2b5e6d09714c712fd1c887.jpg" /></a>
             </div>
 
             <div class="product__description">
-                <h2 class="product__title">Welcome to the Adler online clothing store</h2>
+                <h2 class="product__title">Welcome to the online men's clothing store MANCHESTER</h2>
                 <p class="product__description-text">
-                    An online store of modern women's fashion and streetwear. Shop in our store and also enjoy the best daily content.
+                    Online store of modern men's fashion and streetwear. Shop in our store and also enjoy the best daily content.
                 </p>
             </div>
 
@@ -46,7 +46,7 @@
             <h2 class="products__title">
                 <span class="products__main-category">Products</span>
                 <span class="title-divider">|</span>
-                <span class="products__sub-category">Clothes</span>
+                <span class="products__sub-category">MANCHESTER</span>
 
                 <a href="http://localhost/cart" target="blank">
                     <button class="glow" type="submit"><img src="https://www.svgrepo.com/show/508283/cart.svg" alt="Cart">
@@ -267,13 +267,13 @@
         100% { background-position: 0 0; }
     }
 
-    BODY::before {
-        content: "";
-        position: fixed;
-        top: 0; right: 0; bottom: 0; left: 0;
-        background: rgba(10, 10, 200, .5);
-        z-index: -1;
-    }
+    /*BODY::before {*/
+    /*    content: "";*/
+    /*    position: fixed;*/
+    /*    top: 0; right: 0; bottom: 0; left: 0;*/
+    /*    background: rgba(10, 10, 200, .5);*/
+    /*    z-index: -1;*/
+    /*}*/
 
 
     *, *::before, *::after {
@@ -669,7 +669,7 @@
     @media screen and (min-width: 1000px) {
 
         .container {
-            min-height: 700px;
+            min-height: 800px;
             margin: 10em auto 0;
         }
 

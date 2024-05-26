@@ -2,82 +2,11 @@
 
 namespace Core;
 
-use Controller\CartController;
-use Controller\MainController;
-use Controller\OrderController;
-use Controller\UserController;
-use Controller\UserProductController;
-
 class App
 {
-    private array $routes = [
-        '/registration' => [
-            'GET' => [
-                'class' => UserController::class,
-                'method' => 'getRegistration'
-            ],
-            'POST' => [
-                'class' => UserController::class,
-                'method' => 'postRegistration'
-            ],
-        ],
-        '/login' => [
-            'GET' => [
-                'class' => UserController::class,
-                'method' => 'getLogin'
-            ],
-            'POST' => [
-                'class' => UserController::class,
-                'method' => 'postLogin'
-            ],
-        ],
-        '/main' => [
-            'GET' => [
-                'class' => MainController::class,
-                'method' => 'getMainPage'
-            ],
-        ],
-        '/add-product' => [
-            'GET' => [
-                'class' => UserProductController::class,
-                'method' => 'getProducts'
-            ],
-            'POST' => [
-                'class' => UserProductController::class,
-                'method' => 'postAddProduct'
-            ],
-        ],
-        '/cart' => [
-            'GET' => [
-                'class' => CartController::class,
-                'method' => 'getCart'
-            ],
-        ],
-        '/delete-product' => [
-            'POST' => [
-                'class' => CartController::class,
-                'method' => 'deleteProduct'
-            ],
-        ],
-        '/plus-product' => [
-            'POST' => [
-                'class' => CartController::class,
-                'method' => 'addProductCart'
-            ],
-        ],
-        '/order' => [
-            'GET' => [
-                'class' => OrderController::class,
-                'method' => 'getOrder'
-            ],
-            'POST' => [
-                'class' => OrderController::class,
-                'method' => 'postOrder'
-            ],
-        ]
-    ];
+    private array $routes = [];
 
-    public function run():void
+    public function run(): void
     {
         $uri = $_SERVER['REQUEST_URI'];
         $method = $_SERVER['REQUEST_METHOD'];
@@ -85,20 +14,28 @@ class App
         if (isset($this->routes[$uri])) {
             $routeMethod = $this->routes[$uri];
             if (isset($routeMethod[$method])) {
-                $team = $routeMethod[$method];
-                $className = $team['class'];
-                $function = $team['method'];
-                $obj = new $className;
-                if ($team === 'GET') {
-                    $obj->$function();
-                } else {
-                    $obj->$function($_POST);
-                }
+                $handler = $routeMethod[$method];
+
+                $class = $handler['class'];
+                $function = $handler['method'];
+
+                $obj = new $class;
+                $obj->$function();
             } else {
                 echo "$method is not supported for $uri";
             }
         } else {
             require_once './../View/404.html';
         }
+    }
+
+    public function get(string $route, string $class, string $method): void
+    {
+        $this->routes[$route]['GET'] = ['class' => $class, 'method' => $method];
+    }
+
+    public function post(string $route, string $class, string $method): void
+    {
+        $this->routes[$route]['POST'] = ['class' => $class, 'method' => $method];
     }
 }
