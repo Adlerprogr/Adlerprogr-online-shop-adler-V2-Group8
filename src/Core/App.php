@@ -38,7 +38,7 @@ class App
         }
     }
 
-    public function get(string $route, string $class, string $method, string $request): void
+    public function get(string $route, string $class, string $method, string $request = null): void
     {
         $this->routes[$route]['GET'] = [
             'class' => $class,
@@ -47,7 +47,7 @@ class App
         ];
     }
 
-    public function post(string $route, string $class, string $method, string $request): void
+    public function post(string $route, string $class, string $method, string $request = null): void
     {
         $this->routes[$route]['POST'] = [
             'class' => $class,
