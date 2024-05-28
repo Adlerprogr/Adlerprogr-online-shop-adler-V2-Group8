@@ -2,11 +2,13 @@
 
 namespace Core;
 
+use Request\Request;
+
 class App
 {
     private array $routes = [];
 
-    public function run(): void
+    public function run():void
     {
         $uri = $_SERVER['REQUEST_URI'];
         $method = $_SERVER['REQUEST_METHOD'];
@@ -19,8 +21,15 @@ class App
                 $class = $handler['class'];
                 $function = $handler['method'];
 
+                if (isset($handler['request'])) {
+                    $requestClass = $handler['request'];
+                    $request = new $requestClass($method, $uri, headers_list(), $_POST);
+                } else {
+                    $request = new Request($method, $uri, headers_list(), $_POST);
+                }
+
                 $obj = new $class;
-                $obj->$function();
+                $obj->$function($request);
             } else {
                 echo "$method is not supported for $uri";
             }
@@ -29,13 +38,21 @@ class App
         }
     }
 
-    public function get(string $route, string $class, string $method): void
+    public function get(string $route, string $class, string $method, string $request): void
     {
-        $this->routes[$route]['GET'] = ['class' => $class, 'method' => $method];
+        $this->routes[$route]['GET'] = [
+            'class' => $class,
+            'method' => $method,
+            'request' => $request
+        ];
     }
 
-    public function post(string $route, string $class, string $method): void
+    public function post(string $route, string $class, string $method, string $request): void
     {
-        $this->routes[$route]['POST'] = ['class' => $class, 'method' => $method];
+        $this->routes[$route]['POST'] = [
+            'class' => $class,
+            'method' => $method,
+            'request' => $request
+        ];
     }
 }

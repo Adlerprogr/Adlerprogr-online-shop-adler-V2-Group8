@@ -2,26 +2,26 @@
 
 namespace Controller;
 
-use Model\Product;
-use Model\UserProduct;
+use Repository\ProductRepository;
+use Repository\UserProductRepository;
 
 class MainController
 {
-    private Product $modelProduct;
-    private UserProduct $modelUserProduct;
+    private ProductRepository $productRepository;
+    private UserProductRepository $userProductRepository;
 
     public function __construct()
     {
-        $this->modelProduct = new Product();
-        $this->modelUserProduct = new UserProduct();
+        $this->productRepository = new ProductRepository();
+        $this->userProductRepository = new UserProductRepository();
     }
 
-    public function pathToPage():void
+    public function pathToPage(): void
     {
         require_once './../View/main.php';
     }
 
-    public function getMainPage():void
+    public function getMainPage(): void
     {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -35,16 +35,21 @@ class MainController
         }
         $userId = $_SESSION['user_id'];
 
-        $products = $this->modelProduct->getProducts();
+        $products = $this->productRepository->getProducts(); // !!! object ProductRepository
 
         if (isset($products)) {
-            $allUsersProducts = $this->modelUserProduct->productsUserCart($userId);
-            $sumQuantity = 0;
+            $cartProducts = $this->userProductRepository->productsUserCart($userId); // !!! object UserProductRepository
 
-            foreach ($allUsersProducts as $cartProduct) {
-                $sumQuantity += $cartProduct['quantity'];
+            if (empty($cartProducts)) {
+                $sumQuantity = 0;
+            } else {
+                $sumQuantity = 0;
+
+                foreach ($cartProducts as $cartProduct) {
+                    $sumQuantity += $cartProduct->getQuantity();
+                }
             }
-        } // сделать else
+        }
 
         require_once './../View/main.php';
     }

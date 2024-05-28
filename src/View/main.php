@@ -70,17 +70,17 @@
                         <a href="#x" class="products__link">
 
                             <div class="product-data">
-                                <div class="product-data__price"><?php echo $product['price']; ?></div>
-                                <h3 class="product-data__name"><?php echo $product['name']; ?></h3>
-                                <h3 class="product-data__description"><?php echo $product['description']; ?></h3>
+                                <div class="product-data__price"><?php echo $product->getPrice(); ?></div>
+                                <h3 class="product-data__name"><?php echo $product->getName(); ?></h3>
+                                <h3 class="product-data__description"><?php echo $product->getDescription(); ?></h3>
                             </div>
 
                             <div class="product-data__image">
-                                <img src="<?php echo $product['img_url']; ?>" alt="lamp image" />
+                                <img src="<?php echo $product->getImgUrl(); ?>" alt="lamp image" />
                             </div>
 
                             <label style="color: red"><?php echo $errors['product_id'] ?? ''; ?></label>
-                            <input type="hidden" name="product_id" placeholder="Product ID" required="required" value="<?php echo $product['id']; ?>" />
+                            <input type="hidden" name="product_id" placeholder="Product ID" required="required" value="<?php echo $product->getId(); ?>" />
 
                             <label style="color: red"><?php echo $errors['quantity'] ?? ''; ?></label>
                             <input type="hidden" name="quantity" placeholder="Quantity" required="required" value = 1 />
@@ -88,31 +88,31 @@
                             <td>
                                 <div class="quantity_inner">
 
-                                <form name='delete_product' action="/delete-product" method="POST">
+                                    <form name='delete_product' action="/delete-product" method="POST">
 
-                                    <input type="hidden" name="product_id" placeholder="Product ID" required="required" value="<?php echo $product['id']; ?>" />
-                                    <label style="color: red"><?php echo $errors['quantity'] ?? ''; ?></label>
-                                    <input type="hidden" name="quantity" placeholder="Quantity" required="required" value = 1 />
+                                        <input type="hidden" name="product_id" placeholder="Product ID" required="required" value="<?php echo $product->getId(); ?>" />
+                                        <label style="color: red"><?php echo $errors['quantity'] ?? ''; ?></label>
+                                        <input type="hidden" name="quantity" placeholder="Quantity" required="required" value = 1 />
 
-                                    <button class="bt_minus">
-                                        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                                    </button>
+                                        <button class="bt_minus">
+                                            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        </button>
 
-                                </form>
+                                    </form>
 
                                     <input type="number" value="1" size="2" name="quantity" class="quantity" min="1" max="10" />
 
-                                <form name='plus_product' action="/plus-product" method="POST">
+                                    <form name='plus_product' action="/plus-product" method="POST">
 
-                                    <input type="hidden" name="product_id" placeholder="Product ID" required="required" value="<?php echo $product['id']; ?>" />
-                                    <label style="color: red"><?php echo $errors['quantity'] ?? ''; ?></label>
-                                    <input type="hidden" name="quantity" placeholder="Quantity" required="required" value = 1 />
+                                        <input type="hidden" name="product_id" placeholder="Product ID" required="required" value="<?php echo $product->getId(); ?>" />
+                                        <label style="color: red"><?php echo $errors['quantity'] ?? ''; ?></label>
+                                        <input type="hidden" name="quantity" placeholder="Quantity" required="required" value = 1 />
 
-                                    <button class="bt_plus">
-                                        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                                    </button>
+                                        <button class="bt_plus">
+                                            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                        </button>
 
-                                </form>
+                                    </form>
 
                                 </div>
                             </td>

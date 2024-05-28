@@ -86,30 +86,25 @@
 
     }
 
-    /*body{*/
+    body{
 
-    /*    display: flex;*/
+        display: flex;
 
-    /*    justify-content: center;*/
+        justify-content: center;
 
-    /*    align-items: center;*/
+        align-items: center;
 
-    /*    min-height: 100vh;*/
+        min-height: 100vh;
 
-    /*    background:url(https://images.unsplash.com/photo-1501975558162-0be7b8ca95ea?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDk2NTI3NDJ8&ixlib=rb-4.0.3&q=85) no-repeat;*/
-
-    /*    background-size: cover;*/
-
-    /*    background-position: center;*/
-
-    /*}*/
-    BODY {
-        height: 100vh;
-        margin: 0;
         background-color: rgb(123, 188, 214);
         background-image: url(https://farm5.staticflickr.com/4249/35281380986_5cef9305f8_o.jpg);
         background-repeat: no-repeat;
         background-size: cover;
+
+        /*height: 100vh;*/
+        /*margin: 0;*/
+
+
     }
 
     .wrapper{

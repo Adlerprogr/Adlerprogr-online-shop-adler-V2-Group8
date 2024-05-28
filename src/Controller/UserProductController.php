@@ -2,21 +2,19 @@
 
 namespace Controller;
 
-use Model\Product;
-use Model\User;
-use Model\UserProduct;
+use Repository\ProductRepository;
+use Repository\UserProductRepository;
+use Request\UserProductRequest;
 
 class UserProductController
 {
-    private Product $modelProduct;
-    private User $modelUser;
-    private UserProduct $modelUserProduct;
+    private ProductRepository $productRepository;
+    private UserProductRepository $userProductRepository;
 
     public function __construct()
     {
-        $this->modelProduct = new Product();
-        $this->modelUser = new User();
-        $this->modelUserProduct = new UserProduct();
+        $this->productRepository = new ProductRepository();
+        $this->userProductRepository = new UserProductRepository();
 
     }
 
@@ -25,9 +23,10 @@ class UserProductController
         require_once './../View/add_product.php';
     }
 
-    public function postAddProduct(array $arr):void
+    public function postAddProduct(UserProductRequest $request):void
     {
-        $errors = $this->validateUserProduct($arr);
+        $errors = $request->validate();
+        $arr = $request->getBody();
 
         if (empty($errors)) {
             session_start();
@@ -39,63 +38,16 @@ class UserProductController
             $productId = $arr['product_id'];
             $quantity = $arr['quantity'];
 
-            $check = $this->modelUserProduct->checkProduct($userId, $productId);
+            $check = $this->userProductRepository->checkProduct($userId, $productId);
 
             if (empty($check)) {
-                $this->modelUserProduct->create($userId, $productId, $quantity);
+                $this->userProductRepository->create($userId, $productId, $quantity);
             } else {
-                $this->modelUserProduct->updateQuantity($userId, $productId, $quantity);
+                $this->userProductRepository->updateQuantity($userId, $productId, $quantity);
             }
         }
 
         require_once './../View/add_product.php';
-    }
-
-    private function validateUserProduct(array $arr): array
-    {
-        $errors = [];
-
-        if (isset($_SESSION['user_id'])) {
-            $userId = $_SESSION['user_id'];
-
-            $getUser = $this->modelUser->getUserById($userId);
-
-            if (empty($userId)) {
-                $errors['user_id'] = 'The user id should not be empty';
-            } elseif ($getUser === false) {
-                $errors['user_id'] = 'Such a user is not registered';
-            }
-        } else {
-            $errors['user_id'] = 'User id must be filled';
-        }
-
-        if (isset($arr['product_id'])) {
-            $productId = $arr['product_id'];
-
-            $getProduct = $this->modelProduct->getProductById($productId);
-
-            if (empty($productId)) {
-                $errors['product_id'] = 'The product id should not be empty';
-            } elseif ($getProduct === false) {
-                $errors['product_id'] = 'There is no such product';
-            }
-        } else {
-            $errors['product_id'] = 'The product id must be filled';
-        }
-
-        if (isset($arr['quantity'])) {
-            $quantity = $arr['quantity'];
-
-            if (empty($quantity)) {
-                $errors['quantity'] = 'The quantity should not be empty';
-            } elseif ($quantity <= 0) {
-                $errors['quantity'] = 'The number must be greater than 0';
-            }
-        } else {
-            $errors['quantity'] = 'The quantity must be filled';
-        }
-
-        return $errors;
     }
 
     public function addingProducts():void
@@ -111,7 +63,7 @@ class UserProductController
             }
         }
 
-        $checkProducts = $this->modelProduct->getProducts();
+        $checkProducts = $this->productRepository->getProducts(); // !!! object ProductRepository
 
         if (empty($checkProducts)) {
             echo 'Are no checkProducts';

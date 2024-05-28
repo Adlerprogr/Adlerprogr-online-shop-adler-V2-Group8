@@ -9,7 +9,13 @@
             <input type="email" name="email" placeholder="Enter email" class="inpt" required>
             <label style="color: red"><?php echo $errors['password'] ?? ''; ?></label>
             <input type="password" name="password" placeholder="Enter password" class="inpt" required>
-
+            <!--            <div class="rem-forgot">-->
+            <!--                <div class="rem">-->
+            <!--                    <input type="checkbox" for="rem-tik">-->
+            <!--                    <label for="rem-tik">Remember me</label>-->
+            <!--                </div>-->
+            <!--                <span><a href="#">Forgot password</a></span>-->
+            <!--            </div>-->
             <button value="submit" class="btn">Login</button>
         </form>
         <p class="footer">Don't have account? <a href="http://localhost/registration">Register</a></p>
@@ -18,24 +24,16 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-    /*body{*/
-    /*    font-family: 'Poppins', sans-serif;*/
-    /*    background-image: url(https://nasemul1.github.io/img_host/peakpx.jpg);*/
-    /*    background-size: cover;*/
-    /*    background-position: center center;*/
-    /*    background-attachment: fixed;*/
-    /*    margin: 0;*/
-    /*    padding: 0;*/
-    /*    color: white;*/
-    /*}*/
-
-    BODY {
-        height: 100vh;
-        margin: 0;
+    body{
+        font-family: 'Poppins', sans-serif;
         background-color: rgb(123, 188, 214);
         background-image: url(https://farm5.staticflickr.com/4249/35281380986_5cef9305f8_o.jpg);
-        background-repeat: no-repeat;
         background-size: cover;
+        background-position: center center;
+        background-attachment: fixed;
+        margin: 0;
+        padding: 0;
+        color: white;
     }
 
     #algn{
@@ -107,8 +105,8 @@
     }
 
     .input-container .btn{
-        margin: 0 12px;
-        padding: 10px 0;
+        margin: 20px 12px;
+        padding: 15px 0;
         border: none;
         border-radius: 25px;
         font-weight: 700;

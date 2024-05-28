@@ -31,6 +31,15 @@
 
     html { width: 100%; height:100%; overflow:hidden; }
 
+    BODY {
+        height: 100vh;
+        margin: 0;
+        background-color: rgb(123, 188, 214);
+        background-image: url(https://farm5.staticflickr.com/4249/35281380986_5cef9305f8_o.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
     /*body {*/
     /*    width: 100%;*/
     /*    height:100%;*/
@@ -43,15 +52,6 @@
     /*    background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), linear-gradient(to bottom,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);*/
     /*    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );*/
     /*}*/
-    BODY {
-        height: 100vh;
-        margin: 0;
-        background-color: rgb(123, 188, 214);
-        background-image: url(https://farm5.staticflickr.com/4249/35281380986_5cef9305f8_o.jpg);
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-
     .login {
         position: absolute;
         top: 50%;

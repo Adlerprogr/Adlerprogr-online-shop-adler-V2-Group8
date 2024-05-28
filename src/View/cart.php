@@ -8,24 +8,24 @@
         <div class="row align-items-start">
             <div class="col-12 col-sm-8 items">
 
-                <?php foreach ($allUsersProducts as $product): ?>
-                <!--1-->
-                <div class="cartItem row align-items-start">
-                    <div class="col-3 mb-2">
-                        <img class="w-100" src="<?php echo $product['img_url']; ?>" alt="art image">
+                <?php foreach ($cartProducts as $cartProduct): ?>
+                    <!--1-->
+                    <div class="cartItem row align-items-start">
+                        <div class="col-3 mb-2">
+                            <img class="w-100" src="<?php echo $cartProduct->getProductId()->getImgUrl(); ?>" alt="art image">
+                        </div>
+                        <div class="col-5 mb-2">
+                            <h5 class=""><?php echo $cartProduct->getProductId()->getName(); ?></h5>
+                            <p class="pl-1 mb-0">20 x 24</p>
+                            <p class="pl-1 mb-0"><h6><?php echo $cartProduct->getProductId()->getDescription(); ?></h6></p>
+                        </div>
+                        <div class="col-2">
+                            <p class="cartItemQuantity p-1 text-center"><?php echo $cartProduct->getQuantity(); ?></p>
+                        </div>
+                        <div class="col-2">
+                            <p id="cartItem1Price"><?php echo $cartProduct->getProductId()->getPrice(); ?></p>
+                        </div>
                     </div>
-                    <div class="col-5 mb-2">
-                        <h5 class=""><?php echo $product['name']; ?></h5>
-                        <p class="pl-1 mb-0">20 x 24</p>
-                        <p class="pl-1 mb-0"><h6><?php echo $product['description']; ?></h6></p>
-                    </div>
-                    <div class="col-2">
-                        <p class="cartItemQuantity p-1 text-center"><?php echo $product['quantity']; ?></p>
-                    </div>
-                    <div class="col-2">
-                        <p id="cartItem1Price"><?php echo $product['price']; ?></p>
-                    </div>
-                </div>
                 <?php endforeach; ?>
 
             </div>
@@ -47,7 +47,7 @@
                         <h6>Types of goods</h6>
                     </div>
                     <div class="col-sm-4 p-0">
-                        <p id="tax"><?php echo count($allUsersProducts);?></p>
+                        <p id="tax"><?php echo count($cartProducts);?></p>
                     </div>
                 </div>
                 <div class="row m-0">
@@ -75,7 +75,7 @@
                         </p>
                     </div>
                 </div>
-                <a href="#"><button id="btn-checkout" class="shopnow"><span>Checkout</span></button></a>
+                <a href="http://localhost/order"><button id="btn-checkout" class="shopnow"><span>Checkout</span></button></a>
             </div>
         </div>
     </div>
@@ -92,7 +92,8 @@
         margin: 0;
         background-color: rgb(123, 188, 214);
         background-image: url(https://farm5.staticflickr.com/4249/35281380986_5cef9305f8_o.jpg);
-        background-repeat: no-repeat;
+        /*background-repeat: round;*/
+        background-attachment: fixed;
         background-size: cover;
     }
 
@@ -112,6 +113,7 @@
         background: #f4f4f4;
     }
     .items {
+        background: rgba(135, 196, 192, 0.8);
         padding-right: 30px;
     }
     #btn-checkout {
@@ -200,8 +202,8 @@
         align-items: center;
         justify-content: center;
 
-        min-width: 300px;
-        min-height: 60px;
+        max-width: 2000px;
+        max-height: 60px;
         font-family: 'Nunito', sans-serif;
         font-size: 22px;
         text-transform: uppercase;
