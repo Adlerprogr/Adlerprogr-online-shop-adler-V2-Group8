@@ -4,17 +4,20 @@ namespace Controller;
 
 use Repository\UserProductRepository;
 use Request\CartRequest;
-use Service\AuthenticationService;
+use Service\Authentication\CookieAuthenticationService;
+use Service\Authentication\SessionAuthenticationService;
 
 class CartController
 {
     private UserProductRepository $userProductRepository;
-    private AuthenticationService  $authenticationService;
+//    private SessionAuthenticationService  $authenticationService;
+    private CookieAuthenticationService  $authenticationService;
 
     public function __construct()
     {
         $this->userProductRepository = new UserProductRepository();
-        $this->authenticationService = new AuthenticationService();
+//        $this->authenticationService = new SessionAuthenticationService();
+        $this->authenticationService = new CookieAuthenticationService();
     }
 
     public function pathToPage(): void
@@ -28,7 +31,9 @@ class CartController
             header("Location: /login");
         }
 
-        $userId = $_SESSION['user_id'];
+//        $userId = $_SESSION['user_id']; //Как можно автоматизировать перехода с session в cookie и обратно?
+//        $userId = $_COOKIE['user_id'];
+        $userId = $this->authenticationService->sessionOrCookie();
 
         $cartProducts = $this->userProductRepository->productsUserCart($userId); // !!! object UserProductRepository
 
@@ -58,7 +63,9 @@ class CartController
         if (empty($errors)) {
             $arr = $request->getBody();
 
-            $userId = $_SESSION['user_id'];
+//        $userId = $_SESSION['user_id']; //Как можно автоматизировать перехода с session в cookie и обратно?
+//        $userId = $_COOKIE['user_id'];
+            $userId = $this->authenticationService->sessionOrCookie();
             $productId = $arr['product_id'];
             $quantity = 1;
 
@@ -85,7 +92,9 @@ class CartController
         if (empty($errors)) {
             $arr = $request->getBody();
 
-            $userId = $_SESSION['user_id'];
+//        $userId = $_SESSION['user_id']; //Как можно автоматизировать перехода с session в cookie и обратно?
+//        $userId = $_COOKIE['user_id'];
+            $userId = $this->authenticationService->sessionOrCookie();
             $productId = $arr['product_id'];
             $quantity = 1;
 

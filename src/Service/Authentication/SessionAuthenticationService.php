@@ -1,11 +1,11 @@
 <?php
 
-namespace Service;
+namespace Service\Authentication;
 
-use Repository\UserRepository;
 use Entity\User;
+use Repository\UserRepository;
 
-class AuthenticationService
+class SessionAuthenticationService
 {
     private UserRepository $userRepository;
 
@@ -50,6 +50,15 @@ class AuthenticationService
             }
         } else {
             return false;
+        }
+    }
+
+    public function sessionOrCookie(): int
+    {
+        if (isset($_COOKIE['user_id'])) {
+            return $_COOKIE['user_id'];
+        } else {
+            return $_SESSION['user_id'];
         }
     }
 }

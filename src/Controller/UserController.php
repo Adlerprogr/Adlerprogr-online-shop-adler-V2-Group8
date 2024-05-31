@@ -5,17 +5,20 @@ namespace Controller;
 use Repository\UserRepository;
 use Request\LoginRequest;
 use Request\RegistrationRequest;
-use Service\AuthenticationService;
+use Service\Authentication\CookieAuthenticationService;
+use Service\Authentication\SessionAuthenticationService;
 
 class UserController
 {
     private UserRepository $userRepository;
-    private AuthenticationService  $authenticationService;
+//    private SessionAuthenticationService  $authenticationService;
+    private CookieAuthenticationService  $authenticationService;
 
     public function __construct()
     {
         $this->userRepository = new UserRepository();
-        $this->authenticationService = new AuthenticationService();
+//        $this->authenticationService = new SessionAuthenticationService();
+        $this->authenticationService = new CookieAuthenticationService();
     }
 
     public function getRegistration(): void
@@ -52,8 +55,8 @@ class UserController
         $arr = $request->getBody();
 
         if (empty($errors)) {
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+            $email = $arr['email'];
+            $password = $arr['password'];
 
             $result = $this->authenticationService->authenticate($email, $password);
 

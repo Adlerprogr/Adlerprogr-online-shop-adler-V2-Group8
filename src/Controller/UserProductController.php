@@ -5,19 +5,22 @@ namespace Controller;
 use Repository\ProductRepository;
 use Repository\UserProductRepository;
 use Request\UserProductRequest;
-use Service\AuthenticationService;
+use Service\Authentication\CookieAuthenticationService;
+use Service\Authentication\SessionAuthenticationService;
 
 class UserProductController
 {
     private ProductRepository $productRepository;
     private UserProductRepository $userProductRepository;
-    private AuthenticationService  $authenticationService;
+//    private SessionAuthenticationService  $authenticationService;
+    private CookieAuthenticationService  $authenticationService;
 
     public function __construct()
     {
         $this->productRepository = new ProductRepository();
         $this->userProductRepository = new UserProductRepository();
-        $this->authenticationService = new AuthenticationService();
+//        $this->authenticationService = new SessionAuthenticationService();
+        $this->authenticationService = new CookieAuthenticationService();
 
     }
 
@@ -36,7 +39,9 @@ class UserProductController
                 header("Location: /login");
             }
 
-            $userId = $_SESSION['user_id'];
+//        $userId = $_SESSION['user_id']; //Как можно автоматизировать перехода с session в cookie и обратно?
+//        $userId = $_COOKIE['user_id'];
+            $userId = $this->authenticationService->sessionOrCookie();
             $productId = $arr['product_id'];
             $quantity = $arr['quantity'];
 
