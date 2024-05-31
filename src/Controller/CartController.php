@@ -4,14 +4,17 @@ namespace Controller;
 
 use Repository\UserProductRepository;
 use Request\CartRequest;
+use Service\AuthenticationService;
 
 class CartController
 {
     private UserProductRepository $userProductRepository;
+    private AuthenticationService  $authenticationService;
 
     public function __construct()
     {
         $this->userProductRepository = new UserProductRepository();
+        $this->authenticationService = new AuthenticationService();
     }
 
     public function pathToPage(): void
@@ -21,15 +24,8 @@ class CartController
 
     public function getCart(): void
     {
-        if (session_status() == PHP_SESSION_NONE) { // Проверяю была ли запудена сессия, если нет запускаю, если да то пропускаю
-            session_start();
-            if (!isset($_SESSION['user_id'])) {
-                header("Location: /login");
-            }
-        } else {
-            if (!isset($_SESSION['user_id'])) {
-                header("Location: /login");
-            }
+        if (!$this->authenticationService->check()) {
+            header("Location: /login");
         }
 
         $userId = $_SESSION['user_id'];
@@ -53,22 +49,21 @@ class CartController
 
     public function addProductCart(CartRequest $request): void // в main.php при отправке формы отправляется всегда количевство 1
     {
-        session_start();
-        if (!isset($_SESSION['user_id'])) {
+        if (!$this->authenticationService->check()) {
             header("Location: /login");
         }
 
-        $arr = $request->getBody();
-
-        $userId = $_SESSION['user_id'];
-        $productId = $arr['product_id'];
-        $quantity = 1;
-
         $errors = $request->validate(); // Как использовать в cart.php if, else с foreach? Пока валидационные ошибки не выводяться в cart.php
 
-        $checkProduct = $this->userProductRepository->checkProduct($userId, $productId); // !!! object UserProductRepository
-
         if (empty($errors)) {
+            $arr = $request->getBody();
+
+            $userId = $_SESSION['user_id'];
+            $productId = $arr['product_id'];
+            $quantity = 1;
+
+            $checkProduct = $this->userProductRepository->checkProduct($userId, $productId); // !!! object UserProductRepository
+
             if (empty($checkProduct)) {
                 $this->userProductRepository->create($userId, $productId, $quantity);
             } else {
@@ -81,22 +76,21 @@ class CartController
 
     public function deleteProduct(CartRequest $request):void
     {
-        session_start();
-        if (!isset($_SESSION['user_id'])) {
+        if (!$this->authenticationService->check()) {
             header("Location: /login");
         }
 
-        $arr = $request->getBody();
-
-        $userId = $_SESSION['user_id'];
-        $productId = $arr['product_id'];
-        $quantity = 1;
-
         $errors = $request->validate(); // Как использовать в cart.php if, else с foreach? Пока валидационные ошибки не выводяться в cart.php
 
-        $checkProduct = $this->userProductRepository->checkProduct($userId, $productId); // !!! object UserProductRepository
-
         if (empty($errors)) {
+            $arr = $request->getBody();
+
+            $userId = $_SESSION['user_id'];
+            $productId = $arr['product_id'];
+            $quantity = 1;
+
+            $checkProduct = $this->userProductRepository->checkProduct($userId, $productId); // !!! object UserProductRepository
+
             if (!empty($checkProduct)) {
                 if ($checkProduct->getQuantity() === 1) {
                     $this->userProductRepository->deleteProduct($userId, $productId);

@@ -5,32 +5,34 @@ namespace Controller;
 use Repository\ProductRepository;
 use Repository\UserProductRepository;
 use Request\UserProductRequest;
+use Service\AuthenticationService;
 
 class UserProductController
 {
     private ProductRepository $productRepository;
     private UserProductRepository $userProductRepository;
+    private AuthenticationService  $authenticationService;
 
     public function __construct()
     {
         $this->productRepository = new ProductRepository();
         $this->userProductRepository = new UserProductRepository();
+        $this->authenticationService = new AuthenticationService();
 
     }
 
-    public function getProducts():void
+    public function getProducts(): void
     {
         require_once './../View/add_product.php';
     }
 
-    public function postAddProduct(UserProductRequest $request):void
+    public function postAddProduct(UserProductRequest $request): void
     {
         $errors = $request->validate();
         $arr = $request->getBody();
 
         if (empty($errors)) {
-            session_start();
-            if (!isset($_SESSION['user_id'])) {
+            if (!$this->authenticationService->check()) {
                 header("Location: /login");
             }
 
@@ -50,17 +52,10 @@ class UserProductController
         require_once './../View/add_product.php';
     }
 
-    public function addingProducts():void
+    public function addingProducts(): void
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-            if (!isset($_SESSION['user_id'])) {
-                header("Location: /login");
-            }
-        } else {
-            if (!isset($_SESSION['user_id'])) {
-                header("Location: /login");
-            }
+        if (!$this->authenticationService->check()) {
+            header("Location: /login");
         }
 
         $checkProducts = $this->productRepository->getProducts(); // !!! object ProductRepository

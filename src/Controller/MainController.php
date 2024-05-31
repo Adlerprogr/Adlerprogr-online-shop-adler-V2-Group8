@@ -4,16 +4,19 @@ namespace Controller;
 
 use Repository\ProductRepository;
 use Repository\UserProductRepository;
+use Service\AuthenticationService;
 
 class MainController
 {
     private ProductRepository $productRepository;
     private UserProductRepository $userProductRepository;
+    private AuthenticationService  $authenticationService;
 
     public function __construct()
     {
         $this->productRepository = new ProductRepository();
         $this->userProductRepository = new UserProductRepository();
+        $this->authenticationService = new AuthenticationService();
     }
 
     public function pathToPage(): void
@@ -23,16 +26,10 @@ class MainController
 
     public function getMainPage(): void
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-            if (!isset($_SESSION['user_id'])) {
-                header("Location: /login");
-            }
-        } else {
-            if (!isset($_SESSION['user_id'])) {
-                header("Location: /login");
-            }
+        if (!$this->authenticationService->check()) {
+            header("Location: /login");
         }
+
         $userId = $_SESSION['user_id'];
 
         $products = $this->productRepository->getProducts(); // !!! object ProductRepository

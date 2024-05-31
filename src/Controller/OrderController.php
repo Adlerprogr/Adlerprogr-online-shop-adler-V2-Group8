@@ -6,25 +6,26 @@ use Repository\OrderRepository;
 use Repository\OrderProductRepository;
 use Repository\UserProductRepository;
 use Request\OrderRequest;
+use Service\AuthenticationService;
 
 class OrderController
 {
     private OrderRepository $modelOrder;
     private OrderProductRepository $modelOrderProduct;
     private UserProductRepository $modelUserProduct;
+    private AuthenticationService  $authenticationService;
 
     public function __construct()
     {
         $this->modelOrder = new OrderRepository();
         $this->modelOrderProduct = new OrderProductRepository();
         $this->modelUserProduct = new UserProductRepository();
+        $this->authenticationService = new AuthenticationService();
     }
 
-    public function getOrder()
+    public function getOrder(): void
     {
-        session_start();
-
-        if (!isset($_SESSION['user_id'])) {
+        if (!$this->authenticationService->check()) {
             header("Location: /login");
         }
 
@@ -33,15 +34,8 @@ class OrderController
 
     public function postOrder(OrderRequest $request): void
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-            if (!isset($_SESSION['user_id'])) {
-                header("Location: /login");
-            }
-        } else {
-            if (!isset($_SESSION['user_id'])) {
-                header("Location: /login");
-            }
+        if (!$this->authenticationService->check()) {
+            header("Location: /login");
         }
 
         $errors = $request->validate();
