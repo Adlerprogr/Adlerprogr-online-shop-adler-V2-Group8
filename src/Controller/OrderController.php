@@ -2,28 +2,22 @@
 
 namespace Controller;
 
-use Repository\OrderProductRepository;
-use Repository\OrderRepository;
-use Repository\UserProductRepository;
 use Request\OrderRequest;
 use Service\Authentication\CookieAuthenticationService;
 use Service\Authentication\SessionAuthenticationService;
+use Service\OrderService;
 
 class OrderController
 {
-    private OrderRepository $modelOrder;
-    private OrderProductRepository $modelOrderProduct;
-    private UserProductRepository $modelUserProduct;
 //    private SessionAuthenticationService  $authenticationService;
     private CookieAuthenticationService  $authenticationService;
+    private OrderService $orderService;
 
     public function __construct()
     {
-        $this->modelOrder = new OrderRepository();
-        $this->modelOrderProduct = new OrderProductRepository();
-        $this->modelUserProduct = new UserProductRepository();
 //        $this->authenticationService = new SessionAuthenticationService();
         $this->authenticationService = new CookieAuthenticationService();
+        $this->orderService = new OrderService();
     }
 
     public function getOrder(): void
@@ -49,20 +43,7 @@ class OrderController
 //        $userId = $_COOKIE['user_id'];
             $userId = $this->authenticationService->sessionOrCookie();
 
-            $email = $arr['email'];
-            $phone = $arr['phone'];
-            $name = $arr['name'];
-            $address = $arr['address'];
-            $city = $arr['city'];
-            $postal_code = $arr['postal_code'];
-            $country = $arr['country'];
-
-            $this->modelOrder->createOrder($email, $phone, $name, $address, $city, $postal_code, $country);
-
-            $orderId = $this->modelOrder->getOrderId();
-
-            $this->modelOrderProduct->createOrderProduct($userId, $orderId);
-            $this->modelUserProduct->allDeleteProduct($userId);
+            $this->orderService->create($userId, $arr);
         }
 
         require_once './../View/order.php';

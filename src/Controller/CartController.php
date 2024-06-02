@@ -2,22 +2,25 @@
 
 namespace Controller;
 
-use Repository\UserProductRepository;
 use Request\CartRequest;
 use Service\Authentication\CookieAuthenticationService;
 use Service\Authentication\SessionAuthenticationService;
+use Service\CartService;
+use Repository\UserProductRepository;
 
 class CartController
 {
-    private UserProductRepository $userProductRepository;
 //    private SessionAuthenticationService  $authenticationService;
     private CookieAuthenticationService  $authenticationService;
+    private CartService  $cartService;
+    private UserProductRepository $userProductRepository;
 
     public function __construct()
     {
-        $this->userProductRepository = new UserProductRepository();
 //        $this->authenticationService = new SessionAuthenticationService();
         $this->authenticationService = new CookieAuthenticationService();
+        $this->cartService = new CartService();
+        $this->userProductRepository = new UserProductRepository();
     }
 
     public function pathToPage(): void
@@ -31,23 +34,13 @@ class CartController
             header("Location: /login");
         }
 
-//        $userId = $_SESSION['user_id']; //Как можно автоматизировать перехода с session в cookie и обратно?
-//        $userId = $_COOKIE['user_id'];
         $userId = $this->authenticationService->sessionOrCookie();
 
-        $cartProducts = $this->userProductRepository->productsUserCart($userId); // !!! object UserProductRepository
-
-        if (empty($cartProducts)) {
-            echo 'The basket is empty'; // Как использовать в cart.php if, else с foreach?
-        } else {
-            $sumQuantity = 0;
-            $sumPrice = 0;
-
-            foreach ($cartProducts as $cartProduct) {
-                $sumQuantity += $cartProduct->getQuantity();
-                $sumPrice += $cartProduct->getQuantity() * $cartProduct->getProductId()->getPrice();
-            }
+        if (!$this->cartService->getTotalPrice($userId)) {
+            $notification = 'Cart empty';
         }
+
+        $totalQuantityPrice = $this->cartService->getTotalPrice($userId);
 
         require_once './../View/cart.php';
     }
@@ -63,25 +56,15 @@ class CartController
         if (empty($errors)) {
             $arr = $request->getBody();
 
-//        $userId = $_SESSION['user_id']; //Как можно автоматизировать перехода с session в cookie и обратно?
-//        $userId = $_COOKIE['user_id'];
             $userId = $this->authenticationService->sessionOrCookie();
-            $productId = $arr['product_id'];
-            $quantity = 1;
 
-            $checkProduct = $this->userProductRepository->checkProduct($userId, $productId); // !!! object UserProductRepository
-
-            if (empty($checkProduct)) {
-                $this->userProductRepository->create($userId, $productId, $quantity);
-            } else {
-                $this->userProductRepository->updateQuantity($userId, $productId, $quantity);
-            }
+            $this->cartService->addProduct($userId, $arr);
 
             header("Location: /main");
         }
     }
 
-    public function deleteProduct(CartRequest $request):void
+    public function deleteProduct(CartRequest $request): void
     {
         if (!$this->authenticationService->check()) {
             header("Location: /login");
@@ -92,21 +75,11 @@ class CartController
         if (empty($errors)) {
             $arr = $request->getBody();
 
-//        $userId = $_SESSION['user_id']; //Как можно автоматизировать перехода с session в cookie и обратно?
-//        $userId = $_COOKIE['user_id'];
+//            $userId = $_SESSION['user_id']; //Как можно автоматизировать перехода с session в cookie и обратно?
+//            $userId = $_COOKIE['user_id'];
             $userId = $this->authenticationService->sessionOrCookie();
-            $productId = $arr['product_id'];
-            $quantity = 1;
 
-            $checkProduct = $this->userProductRepository->checkProduct($userId, $productId); // !!! object UserProductRepository
-
-            if (!empty($checkProduct)) {
-                if ($checkProduct->getQuantity() === 1) {
-                    $this->userProductRepository->deleteProduct($userId, $productId);
-                } else {
-                    $this->userProductRepository->minusProduct($userId, $productId, $quantity);
-                }
-            } // сделать else
+            $this->cartService->deleteProduct($userId, $arr);
 
             header("Location: /main");
         }

@@ -7,6 +7,7 @@ use Repository\UserProductRepository;
 use Request\UserProductRequest;
 use Service\Authentication\CookieAuthenticationService;
 use Service\Authentication\SessionAuthenticationService;
+use Service\CartService;
 
 class UserProductController
 {
@@ -14,6 +15,7 @@ class UserProductController
     private UserProductRepository $userProductRepository;
 //    private SessionAuthenticationService  $authenticationService;
     private CookieAuthenticationService  $authenticationService;
+    private CartService $cartService;
 
     public function __construct()
     {
@@ -21,7 +23,7 @@ class UserProductController
         $this->userProductRepository = new UserProductRepository();
 //        $this->authenticationService = new SessionAuthenticationService();
         $this->authenticationService = new CookieAuthenticationService();
-
+        $this->cartService = new CartService();
     }
 
     public function getProducts(): void
@@ -42,16 +44,17 @@ class UserProductController
 //        $userId = $_SESSION['user_id']; //Как можно автоматизировать перехода с session в cookie и обратно?
 //        $userId = $_COOKIE['user_id'];
             $userId = $this->authenticationService->sessionOrCookie();
-            $productId = $arr['product_id'];
-            $quantity = $arr['quantity'];
+//            $productId = $arr['product_id'];
+//            $quantity = 1;
 
-            $check = $this->userProductRepository->checkProduct($userId, $productId);
-
-            if (empty($check)) {
-                $this->userProductRepository->create($userId, $productId, $quantity);
-            } else {
-                $this->userProductRepository->updateQuantity($userId, $productId, $quantity);
-            }
+//            $check = $this->userProductRepository->checkProduct($userId, $productId);
+//
+//            if (empty($check)) {
+//                $this->userProductRepository->create($userId, $productId, $quantity);
+//            } else {
+//                $this->userProductRepository->updateQuantity($userId, $productId, $quantity);
+//            }
+            $this->cartService->addProduct($userId, $arr);
         }
 
         require_once './../View/add_product.php';

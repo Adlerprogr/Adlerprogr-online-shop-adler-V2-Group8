@@ -8,7 +8,7 @@
         <div class="row align-items-start">
             <div class="col-12 col-sm-8 items">
 
-                <?php foreach ($cartProducts as $cartProduct): ?>
+                <?php foreach ($this->userProductRepository->productsUserCart($this->authenticationService->sessionOrCookie()) as $cartProduct): ?>
                     <!--1-->
                     <div class="cartItem row align-items-start">
                         <div class="col-3 mb-2">
@@ -36,8 +36,8 @@
                     </div>
                     <div class="col-sm-4 p-0">
                         <p id="subtotal">
-                            <?php if (isset($sumPrice)): ?>
-                                <?php echo $sumPrice . ' ₽'; ?>
+                            <?php if (isset($totalQuantityPrice['sum_price'])): ?>
+                                <?php echo $totalQuantityPrice['sum_price'] . ' ₽' ?? ''; ?>
                             <?php endif; ?>
                         </p>
                     </div>
@@ -47,7 +47,7 @@
                         <h6>Types of goods</h6>
                     </div>
                     <div class="col-sm-4 p-0">
-                        <p id="tax"><?php echo count($cartProducts);?></p>
+                        <p id="tax"><?php echo count($this->userProductRepository->productsUserCart($this->authenticationService->sessionOrCookie())) ?? '';?></p>
                     </div>
                 </div>
                 <div class="row m-0">
@@ -56,8 +56,8 @@
                     </div>
                     <div class="col-sm-4 p-0">
                         <p id="tax">
-                            <?php if (isset($sumQuantity)): ?>
-                                <?php echo $sumQuantity . ' шт'; ?>
+                            <?php if (isset($totalQuantityPrice['sum_quantity'])): ?>
+                                <?php echo $totalQuantityPrice['sum_quantity'] . ' шт'; ?>
                             <?php endif; ?>
                         </p>
                     </div>
