@@ -3,6 +3,7 @@
 namespace Core;
 
 use Request\Request;
+use Service\Authentication\CookieAuthenticationInterfaceService;
 
 class App
 {
@@ -27,8 +28,9 @@ class App
                 } else {
                     $request = new Request($method, $uri, headers_list(), $_POST);
                 }
+                $authenticationService = new CookieAuthenticationInterfaceService();
 
-                $obj = new $class;
+                $obj = new $class($authenticationService);
                 $obj->$function($request);
             } else {
                 echo "$method is not supported for $uri";

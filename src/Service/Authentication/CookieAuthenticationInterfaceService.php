@@ -5,7 +5,7 @@ namespace Service\Authentication;
 use Entity\User;
 use Repository\UserRepository;
 
-class CookieAuthenticationService implements AuthenticationService
+class CookieAuthenticationInterfaceService implements AuthenticationInterfaceService
 {
     private UserRepository $userRepository;
 

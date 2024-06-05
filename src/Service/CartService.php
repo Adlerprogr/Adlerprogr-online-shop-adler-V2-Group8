@@ -24,9 +24,9 @@ class CartService
         }
     }
 
-    public function getTotalPrice(int $userId): array|false
+    public function getTotalPrice(array $cartProducts): array|false
     {
-        $cartProducts = $this->userProductRepository->productsUserCart($userId); // !!! object UserProductRepository
+//        $cartProducts = $this->userProductRepository->productsUserCart($userId); // !!! object UserProductRepository
 
         if (!empty($cartProducts)) {
             $sumQuantity = 0;

@@ -2,21 +2,18 @@
 
 namespace Controller;
 
-use Request\OrderRequest;
-use Service\Authentication\CookieAuthenticationService;
-use Service\Authentication\SessionAuthenticationService;
+use Service\Authentication\AuthenticationInterfaceService;
 use Service\OrderService;
+use Request\OrderRequest;
 
 class OrderController
 {
-//    private SessionAuthenticationService  $authenticationService;
-    private CookieAuthenticationService  $authenticationService;
+    private AuthenticationInterfaceService $authenticationService;
     private OrderService $orderService;
 
-    public function __construct()
+    public function __construct(AuthenticationInterfaceService $authenticationService)
     {
-//        $this->authenticationService = new SessionAuthenticationService();
-        $this->authenticationService = new CookieAuthenticationService();
+        $this->authenticationService = $authenticationService;
         $this->orderService = new OrderService();
     }
 
@@ -39,8 +36,6 @@ class OrderController
         $arr = $request->getBody();
 
         if (empty($errors)) {
-//        $userId = $_SESSION['user_id']; //Как можно автоматизировать перехода с session в cookie и обратно?
-//        $userId = $_COOKIE['user_id'];
             $userId = $this->authenticationService->sessionOrCookie();
 
             $this->orderService->create($userId, $arr);

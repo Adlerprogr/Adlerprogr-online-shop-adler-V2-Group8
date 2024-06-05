@@ -2,23 +2,20 @@
 
 namespace Controller;
 
-use Request\CartRequest;
-use Service\Authentication\CookieAuthenticationService;
-use Service\Authentication\SessionAuthenticationService;
+use Service\Authentication\AuthenticationInterfaceService;
 use Service\CartService;
 use Repository\UserProductRepository;
+use Request\CartRequest;
 
 class CartController
 {
-//    private SessionAuthenticationService  $authenticationService;
-    private CookieAuthenticationService  $authenticationService;
+    private AuthenticationInterfaceService $authenticationService;
     private CartService  $cartService;
     private UserProductRepository $userProductRepository;
 
-    public function __construct()
+    public function __construct(AuthenticationInterfaceService $authenticationService)
     {
-//        $this->authenticationService = new SessionAuthenticationService();
-        $this->authenticationService = new CookieAuthenticationService();
+        $this->authenticationService = $authenticationService;
         $this->cartService = new CartService();
         $this->userProductRepository = new UserProductRepository();
     }
@@ -36,11 +33,12 @@ class CartController
 
         $userId = $this->authenticationService->sessionOrCookie();
 
-        if (!$this->cartService->getTotalPrice($userId)) {
+        $cartProducts = $this->userProductRepository->productsUserCart($userId); // !!! object UserProductRepository
+        if (!$this->cartService->getTotalPrice($cartProducts)) {
             $notification = 'Cart empty';
         }
 
-        $totalQuantityPrice = $this->cartService->getTotalPrice($userId);
+        $totalQuantityPrice = $this->cartService->getTotalPrice($cartProducts);
 
         require_once './../View/cart.php';
     }
@@ -75,8 +73,6 @@ class CartController
         if (empty($errors)) {
             $arr = $request->getBody();
 
-//            $userId = $_SESSION['user_id']; //Как можно автоматизировать перехода с session в cookie и обратно?
-//            $userId = $_COOKIE['user_id'];
             $userId = $this->authenticationService->sessionOrCookie();
 
             $this->cartService->deleteProduct($userId, $arr);

@@ -8,7 +8,7 @@
         <div class="row align-items-start">
             <div class="col-12 col-sm-8 items">
 
-                <?php foreach ($this->userProductRepository->productsUserCart($this->authenticationService->sessionOrCookie()) as $cartProduct): ?>
+                <?php foreach ($cartProducts as $cartProduct): ?>
                     <!--1-->
                     <div class="cartItem row align-items-start">
                         <div class="col-3 mb-2">
@@ -47,7 +47,7 @@
                         <h6>Types of goods</h6>
                     </div>
                     <div class="col-sm-4 p-0">
-                        <p id="tax"><?php echo count($this->userProductRepository->productsUserCart($this->authenticationService->sessionOrCookie())) ?? '';?></p>
+                        <p id="tax"><?php echo count($cartProducts) ?? '';?></p>
                     </div>
                 </div>
                 <div class="row m-0">

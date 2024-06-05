@@ -2,28 +2,25 @@
 
 namespace Controller;
 
+use Service\Authentication\AuthenticationInterfaceService;
+use Service\CartService;
 use Repository\ProductRepository;
 use Repository\UserProductRepository;
 use Request\UserProductRequest;
-use Service\Authentication\CookieAuthenticationService;
-use Service\Authentication\SessionAuthenticationService;
-use Service\CartService;
 
 class UserProductController
 {
+    private AuthenticationInterfaceService $authenticationService;
+    private CartService $cartService;
     private ProductRepository $productRepository;
     private UserProductRepository $userProductRepository;
-//    private SessionAuthenticationService  $authenticationService;
-    private CookieAuthenticationService  $authenticationService;
-    private CartService $cartService;
 
-    public function __construct()
+    public function __construct(AuthenticationInterfaceService $authenticationService)
     {
+        $this->authenticationService = $authenticationService;
+        $this->cartService = new CartService();
         $this->productRepository = new ProductRepository();
         $this->userProductRepository = new UserProductRepository();
-//        $this->authenticationService = new SessionAuthenticationService();
-        $this->authenticationService = new CookieAuthenticationService();
-        $this->cartService = new CartService();
     }
 
     public function getProducts(): void
@@ -41,19 +38,8 @@ class UserProductController
                 header("Location: /login");
             }
 
-//        $userId = $_SESSION['user_id']; //Как можно автоматизировать перехода с session в cookie и обратно?
-//        $userId = $_COOKIE['user_id'];
             $userId = $this->authenticationService->sessionOrCookie();
-//            $productId = $arr['product_id'];
-//            $quantity = 1;
 
-//            $check = $this->userProductRepository->checkProduct($userId, $productId);
-//
-//            if (empty($check)) {
-//                $this->userProductRepository->create($userId, $productId, $quantity);
-//            } else {
-//                $this->userProductRepository->updateQuantity($userId, $productId, $quantity);
-//            }
             $this->cartService->addProduct($userId, $arr);
         }
 

@@ -4,7 +4,7 @@ namespace Service\Authentication;
 
 use Entity\User;
 
-interface AuthenticationService
+interface AuthenticationInterfaceService
 {
     public function check(): bool;
     public function getCurrentUser(): User|null;
