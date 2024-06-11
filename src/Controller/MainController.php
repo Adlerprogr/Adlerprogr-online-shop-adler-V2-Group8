@@ -12,11 +12,11 @@ class MainController
     private ProductRepository $productRepository;
     private UserProductRepository $userProductRepository;
 
-    public function __construct(AuthenticationInterfaceService $authenticationService)
+    public function __construct(AuthenticationInterfaceService $authenticationService, ProductRepository $productRepository, UserProductRepository $userProductRepository)
     {
         $this->authenticationService = $authenticationService;
-        $this->productRepository = new ProductRepository();
-        $this->userProductRepository = new UserProductRepository();
+        $this->productRepository = $productRepository;
+        $this->userProductRepository = $userProductRepository;
     }
 
     public function pathToPage(): void

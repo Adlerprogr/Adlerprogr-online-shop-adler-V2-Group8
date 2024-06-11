@@ -4,7 +4,7 @@ namespace Service;
 
 use Repository\UserProductRepository;
 
-class CartService
+class CartService extends \Repository\UserRepository
 {
     private UserProductRepository $userProductRepository;
 
@@ -26,7 +26,6 @@ class CartService
 
     public function getTotalPrice(array $cartProducts): array|false
     {
-//        $cartProducts = $this->userProductRepository->productsUserCart($userId); // !!! object UserProductRepository
 
         if (!empty($cartProducts)) {
             $sumQuantity = 0;

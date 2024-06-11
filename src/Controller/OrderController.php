@@ -11,10 +11,10 @@ class OrderController
     private AuthenticationInterfaceService $authenticationService;
     private OrderService $orderService;
 
-    public function __construct(AuthenticationInterfaceService $authenticationService)
+    public function __construct(AuthenticationInterfaceService $authenticationService, OrderService $orderService)
     {
         $this->authenticationService = $authenticationService;
-        $this->orderService = new OrderService();
+        $this->orderService = $orderService;
     }
 
     public function getOrder(): void

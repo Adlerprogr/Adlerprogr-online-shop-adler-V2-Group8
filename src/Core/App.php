@@ -3,11 +3,19 @@
 namespace Core;
 
 use Request\Request;
+use Service\Authentication\AuthenticationInterfaceService;
 use Service\Authentication\CookieAuthenticationInterfaceService;
+use Core\Container;
 
 class App
 {
+    private Container $container;
     private array $routes = [];
+
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
 
     public function run():void
     {
@@ -28,9 +36,8 @@ class App
                 } else {
                     $request = new Request($method, $uri, headers_list(), $_POST);
                 }
-                $authenticationService = new CookieAuthenticationInterfaceService();
 
-                $obj = new $class($authenticationService);
+                $obj = $this->container->get($class);
                 $obj->$function($request);
             } else {
                 echo "$method is not supported for $uri";

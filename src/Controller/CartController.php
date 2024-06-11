@@ -13,11 +13,11 @@ class CartController
     private CartService  $cartService;
     private UserProductRepository $userProductRepository;
 
-    public function __construct(AuthenticationInterfaceService $authenticationService)
+    public function __construct(AuthenticationInterfaceService $authenticationService, CartService $cartService, UserProductRepository $userProductRepository)
     {
         $this->authenticationService = $authenticationService;
-        $this->cartService = new CartService();
-        $this->userProductRepository = new UserProductRepository();
+        $this->cartService = $cartService;
+        $this->userProductRepository = $userProductRepository;
     }
 
     public function pathToPage(): void

@@ -12,10 +12,10 @@ class UserController
     private AuthenticationInterfaceService $authenticationService;
     private UserRepository $userRepository;
 
-    public function __construct(AuthenticationInterfaceService $authenticationService)
+    public function __construct(AuthenticationInterfaceService $authenticationService, UserRepository $userRepository)
     {
         $this->authenticationService = $authenticationService;
-        $this->userRepository = new UserRepository();
+        $this->userRepository = $userRepository;
     }
 
     public function getRegistration(): void
