@@ -4,7 +4,7 @@ namespace Service;
 
 use Repository\UserProductRepository;
 
-class CartService extends \Repository\UserRepository
+class CartService
 {
     private UserProductRepository $userProductRepository;
 
