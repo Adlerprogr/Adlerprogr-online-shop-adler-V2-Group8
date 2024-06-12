@@ -9,9 +9,9 @@ class CookieAuthenticationInterfaceService implements AuthenticationInterfaceSer
 {
     private UserRepository $userRepository;
 
-    public function __construct()
+    public function __construct(UserRepository $userRepository)
     {
-        $this->userRepository = new UserRepository();
+        $this->userRepository = $userRepository;
     }
 
     public function check(): bool

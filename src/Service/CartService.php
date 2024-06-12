@@ -8,9 +8,9 @@ class CartService
 {
     private UserProductRepository $userProductRepository;
 
-    public function __construct()
+    public function __construct(UserProductRepository $userProductRepository)
     {
-        $this->userProductRepository = new UserProductRepository();
+        $this->userProductRepository = $userProductRepository;
     }
 
     public function addProduct(int $userId, array $arr): void
