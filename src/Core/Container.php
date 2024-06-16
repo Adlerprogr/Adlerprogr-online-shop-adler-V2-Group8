@@ -19,6 +19,6 @@ class Container
             return $callback($this);
         }
 
-        return new $class($this);
+        return new $class();
     }
 }

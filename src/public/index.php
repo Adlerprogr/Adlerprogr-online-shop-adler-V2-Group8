@@ -13,6 +13,9 @@ use Request\LoginRequest;
 use Request\OrderRequest;
 use Request\RegistrationRequest;
 use Request\UserProductRequest;
+use Service\Authentication\AuthenticationInterfaceService;
+use Service\CartService;
+use Service\OrderService;
 
 require_once './../Core/Autoloader.php';
 
@@ -28,6 +31,9 @@ $container->set(MainController::class, $services[MainController::class]);
 $container->set(OrderController::class, $services[OrderController::class]);
 $container->set(UserController::class, $services[UserController::class]);
 $container->set(UserProductController::class, $services[UserProductController::class]);
+$container->set(AuthenticationInterfaceService::class, $services[AuthenticationInterfaceService::class]);
+$container->set(OrderService::class, $services[OrderService::class]);
+$container->set(CartService::class, $services[CartService::class]);
 
 $app = new App($container);
 
