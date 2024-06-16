@@ -13,8 +13,12 @@ class Container
 
     public function get(string $class): object
     {
-        $callback = $this->services[$class];
+        if (isset($this->services[$class])) {
+            $callback = $this->services[$class];
 
-        return $callback();
+            return $callback($this);
+        }
+
+        return new $class($this);
     }
 }

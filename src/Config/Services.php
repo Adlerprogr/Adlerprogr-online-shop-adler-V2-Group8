@@ -14,69 +14,57 @@ use Service\CartService;
 use Service\OrderService;
 
 return [
-    CartController::class => function () {
-        $userRepository = new UserRepository();
-        $authenticationService = new \Service\Authentication\CookieAuthenticationInterfaceService($userRepository);
-        $userProductRepository = new UserProductRepository();
-        $cartService = new CartService($userProductRepository);
-        $userProductRepository = new UserProductRepository();
+    // Controller
+    CartController::class => function (\Core\Container $container) {
+        $authenticationService = $container->get(\Service\Authentication\AuthenticationInterfaceService::class);
+        $cartService = $container->get(\Service\CartService::class);
+        $userProductRepository = $container->get(UserProductRepository::class);
 
         return new CartController($authenticationService , $cartService, $userProductRepository);
     },
-    MainController::class => function () {
-        $userRepository = new UserRepository();
-        $authenticationService = new \Service\Authentication\CookieAuthenticationInterfaceService($userRepository);
-        $productRepository = new ProductRepository();
-        $userProductRepository = new UserProductRepository();
+    MainController::class => function (\Core\Container $container) {
+        $authenticationService = $container->get(\Service\Authentication\AuthenticationInterfaceService::class);
+        $productRepository = $container->get(ProductRepository::class);
+        $userProductRepository = $container->get(UserProductRepository::class);
 
         return new MainController($authenticationService , $productRepository, $userProductRepository);
     },
-    OrderController::class => function () {
-        $userRepository = new UserRepository();
-        $authenticationService = new \Service\Authentication\CookieAuthenticationInterfaceService($userRepository);
-        $orderRepository = new OrderRepository();
-        $orderProductRepository = new OrderProductRepository();
-        $userProductRepository = new UserProductRepository();
-        $orderService = new OrderService($orderRepository, $orderProductRepository, $userProductRepository);
+    OrderController::class => function (\Core\Container $container) {
+        $authenticationService = $container->get(\Service\Authentication\AuthenticationInterfaceService::class);
+        $orderService = $container->get(OrderService::class);
 
         return new OrderController($authenticationService , $orderService);
     },
-    UserController::class => function () {
-        $userRepository = new UserRepository();
-        $authenticationService = new \Service\Authentication\CookieAuthenticationInterfaceService($userRepository);
-        $userRepository = new UserRepository();
+    UserController::class => function (\Core\Container $container) {
+        $authenticationService = $container->get(\Service\Authentication\AuthenticationInterfaceService::class);
+        $userRepository = $container->get(UserRepository::class);
 
         return new UserController($authenticationService ,$userRepository);
     },
-    UserProductController::class => function () {
-        $userRepository = new UserRepository();
-        $authenticationService = new \Service\Authentication\CookieAuthenticationInterfaceService($userRepository);
-        $userProductRepository = new UserProductRepository();
-        $cartService = new CartService($userProductRepository);
-        $productRepository = new ProductRepository();
+    UserProductController::class => function (\Core\Container $container) {
+        $authenticationService = $container->get(\Service\Authentication\AuthenticationInterfaceService::class);
+        $cartService = $container->get(\Service\CartService::class);
+        $productRepository = $container->get(ProductRepository::class);
 
         return new UserProductController($authenticationService , $cartService, $productRepository);
     },
-    CartService::class => function () {
-        $userProductRepository = new UserProductRepository();
+
+    // Service
+    CartService::class => function (\Core\Container $container) {
+        $userProductRepository = $container->get(UserProductRepository::class);
 
         return new CartService($userProductRepository);
     },
-    OrderService::class => function () {
-        $orderRepository = new OrderRepository();
-        $orderProductRepository = new OrderProductRepository();
-        $userProductRepository = new UserProductRepository();
+    OrderService::class => function (\Core\Container $container) {
+        $orderRepository = $container->get(OrderRepository::class);
+        $orderProductRepository = $container->get(OrderProductRepository::class);
+        $userProductRepository = $container->get(UserProductRepository::class);
 
         return new OrderService($orderRepository, $orderProductRepository, $userProductRepository);
     },
-    \Service\Authentication\CookieAuthenticationInterfaceService::class => function () {
-        $userRepository = new UserRepository();
+    \Service\Authentication\AuthenticationInterfaceService::class => function (\Core\Container $container) {
+        $userRepository = $container->get(UserRepository::class);
 
         return new Service\Authentication\CookieAuthenticationInterfaceService($userRepository);
-    },
-    \Service\Authentication\SessionAuthenticationService::class => function () {
-        $userRepository = new UserRepository();
-
-        return new \Service\Authentication\CookieAuthenticationInterfaceService($userRepository);
     }
 ];
