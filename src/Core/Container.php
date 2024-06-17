@@ -6,6 +6,11 @@ class Container
 {
     private array $services = [];
 
+    public function __construct(array $services)
+    {
+        $this->services = $services;
+    }
+
     public function set(string $class, callable $callback): void
     {
         $this->services[$class] = $callback;

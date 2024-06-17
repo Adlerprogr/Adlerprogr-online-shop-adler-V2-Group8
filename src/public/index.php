@@ -24,16 +24,7 @@ Autoloader::registration($dir);
 
 $services = include './../Config/Services.php';
 
-$container = new Container();
-
-$container->set(CartController::class, $services[CartController::class]);
-$container->set(MainController::class, $services[MainController::class]);
-$container->set(OrderController::class, $services[OrderController::class]);
-$container->set(UserController::class, $services[UserController::class]);
-$container->set(UserProductController::class, $services[UserProductController::class]);
-$container->set(AuthenticationInterfaceService::class, $services[AuthenticationInterfaceService::class]);
-$container->set(OrderService::class, $services[OrderService::class]);
-$container->set(CartService::class, $services[CartService::class]);
+$container = new Container($services);
 
 $app = new App($container);
 
