@@ -22,3 +22,9 @@ message: Class "0" not found
 file: /var/www/html/src/Core/Container.php
 line: 27
 
+The server cannot process the request: 
+date: 2024/06/23 21:35:14
+message: Service\Authentication\CookieAuthenticationInterfaceService::sessionOrCookie(): Return value must be of type int, null returned
+file: /var/www/html/src/Service/Authentication/CookieAuthenticationInterfaceService.php
+line: 61
+
