@@ -34,11 +34,11 @@ class CartController
         $userId = $this->authenticationService->sessionOrCookie();
 
         $cartProducts = $this->userProductRepository->productsUserCart($userId); // !!! object UserProductRepository
-        if (!$this->cartService->getTotalPrice($cartProducts)) {
-            $notification = 'Cart empty';
-        }
-
         $totalQuantityPrice = $this->cartService->getTotalPrice($cartProducts);
+
+        if (empty($cartProducts)) {
+            $massage = 'В корзине пусто';
+        }
 
         require_once './../View/cart.php';
     }

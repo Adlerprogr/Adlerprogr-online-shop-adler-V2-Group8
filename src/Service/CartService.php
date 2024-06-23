@@ -24,12 +24,12 @@ class CartService
         }
     }
 
-    public function getTotalPrice(array $cartProducts): array|false
+    public function getTotalPrice(array|null $cartProducts): array
     {
+        $sumQuantity = 0;
+        $sumPrice = 0;
 
         if (!empty($cartProducts)) {
-            $sumQuantity = 0;
-            $sumPrice = 0;
 
             foreach ($cartProducts as $cartProduct) {
                 $sumQuantity += $cartProduct->getQuantity();
@@ -40,7 +40,9 @@ class CartService
 
             return $totalPrice;
         } else {
-            return false;
+            $totalPrice = ['sum_quantity' => $sumQuantity, 'sum_price' => $sumPrice];
+
+            return $totalPrice;
         }
     }
 

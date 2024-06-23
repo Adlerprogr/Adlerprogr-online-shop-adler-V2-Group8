@@ -8,25 +8,30 @@
         <div class="row align-items-start">
             <div class="col-12 col-sm-8 items">
 
-                <?php foreach ($cartProducts as $cartProduct): ?>
-                    <!--1-->
-                    <div class="cartItem row align-items-start">
-                        <div class="col-3 mb-2">
-                            <img class="w-100" src="<?php echo $cartProduct->getProductId()->getImgUrl(); ?>" alt="art image">
+                <?php
+                echo $massage ?? '';
+                if (empty($massage)) {
+                    foreach ($cartProducts as $cartProduct): ?>
+                        <!--1-->
+                        <div class="cartItem row align-items-start">
+                            <div class="col-3 mb-2">
+                                <img class="w-100" src="<?php echo $cartProduct->getProductId()->getImgUrl(); ?>" alt="art image">
+                            </div>
+                            <div class="col-5 mb-2">
+                                <h5 class=""><?php echo $cartProduct->getProductId()->getName(); ?></h5>
+                                <p class="pl-1 mb-0">20 x 24</p>
+                                <p class="pl-1 mb-0"><h6><?php echo $cartProduct->getProductId()->getDescription(); ?></h6></p>
+                            </div>
+                            <div class="col-2">
+                                <p class="cartItemQuantity p-1 text-center"><?php echo $cartProduct->getQuantity(); ?></p>
+                            </div>
+                            <div class="col-2">
+                                <p id="cartItem1Price"><?php echo $cartProduct->getProductId()->getPrice(); ?></p>
+                            </div>
                         </div>
-                        <div class="col-5 mb-2">
-                            <h5 class=""><?php echo $cartProduct->getProductId()->getName(); ?></h5>
-                            <p class="pl-1 mb-0">20 x 24</p>
-                            <p class="pl-1 mb-0"><h6><?php echo $cartProduct->getProductId()->getDescription(); ?></h6></p>
-                        </div>
-                        <div class="col-2">
-                            <p class="cartItemQuantity p-1 text-center"><?php echo $cartProduct->getQuantity(); ?></p>
-                        </div>
-                        <div class="col-2">
-                            <p id="cartItem1Price"><?php echo $cartProduct->getProductId()->getPrice(); ?></p>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach;
+                }
+                ?>
 
             </div>
             <div class="col-12 col-sm-4 p-3 proceed form">
@@ -36,9 +41,7 @@
                     </div>
                     <div class="col-sm-4 p-0">
                         <p id="subtotal">
-                            <?php if (isset($totalQuantityPrice['sum_price'])): ?>
-                                <?php echo $totalQuantityPrice['sum_price'] . ' ₽' ?? ''; ?>
-                            <?php endif; ?>
+                            <?php echo $totalQuantityPrice['sum_price'] . ' ₽' ?? ''; ?>
                         </p>
                     </div>
                 </div>
@@ -47,7 +50,14 @@
                         <h6>Types of goods</h6>
                     </div>
                     <div class="col-sm-4 p-0">
-                        <p id="tax"><?php echo count($cartProducts) ?? '';?></p>
+                        <p id="tax">
+                            <?php
+                                echo $massage ?? '';
+                                if (empty($massage)) {
+                                    echo count($cartProducts) ?? '';
+                                }
+                            ?>
+                        </p>
                     </div>
                 </div>
                 <div class="row m-0">
@@ -56,9 +66,7 @@
                     </div>
                     <div class="col-sm-4 p-0">
                         <p id="tax">
-                            <?php if (isset($totalQuantityPrice['sum_quantity'])): ?>
-                                <?php echo $totalQuantityPrice['sum_quantity'] . ' шт'; ?>
-                            <?php endif; ?>
+                            <?php echo $totalQuantityPrice['sum_quantity'] . ' шт' ?? ''; ?>
                         </p>
                     </div>
                 </div>

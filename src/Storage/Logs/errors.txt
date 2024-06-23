@@ -28,3 +28,123 @@ message: Service\Authentication\CookieAuthenticationInterfaceService::sessionOrC
 file: /var/www/html/src/Service/Authentication/CookieAuthenticationInterfaceService.php
 line: 61
 
+The server cannot process the request: 
+date: 2024/06/23 21:41:21
+message: Service\CartService::getTotalPrice(): Argument #1 ($cartProducts) must be of type array, null given, called in /var/www/html/src/Controller/CartController.php on line 37
+file: /var/www/html/src/Service/CartService.php
+line: 27
+
+The server cannot process the request: 
+date: 2024/06/23 21:49:23
+message: Service\CartService::getTotalPrice(): Argument #1 ($cartProducts) must be of type array, null given, called in /var/www/html/src/Controller/CartController.php on line 42
+file: /var/www/html/src/Service/CartService.php
+line: 27
+
+The server cannot process the request: 
+date: 2024/06/23 21:54:27
+message: Service\CartService::getTotalPrice(): Argument #1 ($cartProducts) must be of type array, null given, called in /var/www/html/src/Controller/CartController.php on line 37
+file: /var/www/html/src/Service/CartService.php
+line: 27
+
+The server cannot process the request: 
+date: 2024/06/23 22:00:17
+message: Service\CartService::getTotalPrice(): Argument #1 ($cartProducts) must be of type array, null given, called in /var/www/html/src/Controller/CartController.php on line 37
+file: /var/www/html/src/Service/CartService.php
+line: 27
+
+The server cannot process the request: 
+date: 2024/06/23 22:02:56
+message: Service\CartService::getTotalPrice(): Argument #1 ($cartProducts) must be of type array, null given, called in /var/www/html/src/Controller/CartController.php on line 37
+file: /var/www/html/src/Service/CartService.php
+line: 27
+
+The server cannot process the request: 
+date: 2024/06/23 22:16:08
+message: Service\CartService::getTotalPrice(): Argument #1 ($cartProducts) must be of type array, null given, called in /var/www/html/src/Controller/CartController.php on line 37
+file: /var/www/html/src/Service/CartService.php
+line: 27
+
+The server cannot process the request: 
+date: 2024/06/23 22:16:11
+message: Service\CartService::getTotalPrice(): Argument #1 ($cartProducts) must be of type array, null given, called in /var/www/html/src/Controller/CartController.php on line 37
+file: /var/www/html/src/Service/CartService.php
+line: 27
+
+The server cannot process the request: 
+date: 2024/06/23 22:18:34
+message: count(): Argument #1 ($value) must be of type Countable|array, null given
+file: /var/www/html/src/View/cart.php
+line: 55
+
+The server cannot process the request: 
+date: 2024/06/23 22:18:42
+message: count(): Argument #1 ($value) must be of type Countable|array, null given
+file: /var/www/html/src/View/cart.php
+line: 55
+
+The server cannot process the request: 
+date: 2024/06/23 22:19:54
+message: count(): Argument #1 ($value) must be of type Countable|array, null given
+file: /var/www/html/src/View/cart.php
+line: 55
+
+The server cannot process the request: 
+date: 2024/06/23 22:20:29
+message: count(): Argument #1 ($value) must be of type Countable|array, null given
+file: /var/www/html/src/View/cart.php
+line: 53
+
+The server cannot process the request: 
+date: 2024/06/23 22:20:32
+message: count(): Argument #1 ($value) must be of type Countable|array, null given
+file: /var/www/html/src/View/cart.php
+line: 53
+
+The server cannot process the request: 
+date: 2024/06/23 22:22:11
+message: count(): Argument #1 ($value) must be of type Countable|array, null given
+file: /var/www/html/src/View/cart.php
+line: 53
+
+The server cannot process the request: 
+date: 2024/06/23 22:22:14
+message: count(): Argument #1 ($value) must be of type Countable|array, null given
+file: /var/www/html/src/View/cart.php
+line: 53
+
+The server cannot process the request: 
+date: 2024/06/23 22:23:10
+message: count(): Argument #1 ($value) must be of type Countable|array, null given
+file: /var/www/html/src/View/cart.php
+line: 53
+
+The server cannot process the request: 
+date: 2024/06/23 22:23:49
+message: count(): Argument #1 ($value) must be of type Countable|array, null given
+file: /var/www/html/src/View/cart.php
+line: 53
+
+The server cannot process the request: 
+date: 2024/06/23 22:27:46
+message: syntax error, unexpected token ":"
+file: /var/www/html/src/View/cart.php
+line: 55
+
+The server cannot process the request: 
+date: 2024/06/23 22:29:38
+message: count(): Argument #1 ($value) must be of type Countable|array, null given
+file: /var/www/html/src/View/cart.php
+line: 54
+
+The server cannot process the request: 
+date: 2024/06/23 22:29:45
+message: count(): Argument #1 ($value) must be of type Countable|array, null given
+file: /var/www/html/src/View/cart.php
+line: 54
+
+The server cannot process the request: 
+date: 2024/06/23 22:32:45
+message: count(): Argument #1 ($value) must be of type Countable|array, null given
+file: /var/www/html/src/View/cart.php
+line: 57
+
