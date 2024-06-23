@@ -6,7 +6,7 @@ class OrderProductRepository extends Repository
 {
     public function createOrderProduct(int $userId, int $orderId): void
     {
-        $stmt = $this->pdo->prepare("
+        $stmt = self::getPdo()->prepare("
             INSERT INTO 
                 order_products (user_id, product_id, quantity, order_id) 
             SELECT 

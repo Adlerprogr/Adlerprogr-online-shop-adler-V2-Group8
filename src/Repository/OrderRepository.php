@@ -6,7 +6,7 @@ class OrderRepository extends Repository
 {
     public function createOrder(string $email, int $phone, string $name, string $address, string $city, string $postal_code, string $country): void
     {
-        $stmt = $this->pdo->prepare("
+        $stmt = self::getPdo()->prepare("
             INSERT INTO 
                 orders (email, phone, name, address, city, postal_code, country) 
             VALUES 
@@ -17,6 +17,6 @@ class OrderRepository extends Repository
 
     public function getOrderId(): false|string
     {
-        return $this->pdo->lastInsertId();
+        return self::getPdo()->lastInsertId();
     }
 }

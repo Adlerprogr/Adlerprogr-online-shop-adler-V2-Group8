@@ -8,9 +8,7 @@ class ProductRepository extends Repository
 {
     public function getProducts(): array|null
     {
-        $stmt = $this->pdo->query("
-            SELECT * FROM 
-                products");
+        $stmt = self::getPdo()->query("SELECT * FROM products");
         $products = $stmt->fetchAll();
 
         if (empty($products)) {
@@ -27,7 +25,7 @@ class ProductRepository extends Repository
 
     public function getProductById(int $productId): Product|null
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM products WHERE id = :id");
+        $stmt = self::getPdo()->prepare("SELECT * FROM products WHERE id = :id");
         $stmt->execute(['id' => $productId]);
         $getProduct = $stmt->fetch();
 

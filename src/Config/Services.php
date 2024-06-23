@@ -60,7 +60,7 @@ return [
         $orderProductRepository = $container->get(OrderProductRepository::class);
         $userProductRepository = $container->get(UserProductRepository::class);
 
-        return new OrderService($orderRepository, $orderProductRepository, $userProductRepository);
+        return new OrderService($container, $orderRepository, $orderProductRepository, $userProductRepository);
     },
     \Service\Authentication\AuthenticationInterfaceService::class => function (\Core\Container $container) {
         $userRepository = $container->get(UserRepository::class);

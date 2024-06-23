@@ -6,10 +6,14 @@ use PDO;
 
 class Repository
 {
-    protected PDO $pdo;
+    protected static PDO $pdo;
 
-    public function __construct()
+    public static function getPdo(): PDO
     {
-        $this->pdo = new PDO("pgsql:host=db; port=5432; dbname=laravel", "root", "root");
+        if (isset(self::$pdo)) {
+            return self::$pdo;
+        }
+
+        return self::$pdo = new PDO("pgsql:host=db; port=5432; dbname=laravel", "root", "root");
     }
 }

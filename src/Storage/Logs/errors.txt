@@ -1,0 +1,24 @@
+The server cannot process the request: 
+date: 2024/06/19 14:00:45
+message: Class "0" not found
+file: /var/www/html/src/Core/Container.php
+line: 27
+
+The server cannot process the request: 
+date: 2024/06/19 14:01:15
+message: Service\Authentication\CookieAuthenticationInterfaceService::sessionOrCookie(): Return value must be of type int, null returned
+file: /var/www/html/src/Service/Authentication/CookieAuthenticationInterfaceService.php
+line: 61
+
+The server cannot process the request: 
+date: 2024/06/19 14:01:26
+message: Core\Container::get(): Argument #1 ($class) must be of type string, null given, called in /var/www/html/src/Core/App.php on line 42
+file: /var/www/html/src/Core/Container.php
+line: 19
+
+The server cannot process the request: 
+date: 2024/06/19 14:01:40
+message: Class "0" not found
+file: /var/www/html/src/Core/Container.php
+line: 27
+

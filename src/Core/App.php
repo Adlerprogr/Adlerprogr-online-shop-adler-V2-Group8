@@ -3,9 +3,7 @@
 namespace Core;
 
 use Request\Request;
-use Service\Authentication\AuthenticationInterfaceService;
-use Service\Authentication\CookieAuthenticationInterfaceService;
-use Core\Container;
+use Throwable;
 
 class App
 {
@@ -22,28 +20,42 @@ class App
         $uri = $_SERVER['REQUEST_URI'];
         $method = $_SERVER['REQUEST_METHOD'];
 
-        if (isset($this->routes[$uri])) {
-            $routeMethod = $this->routes[$uri];
-            if (isset($routeMethod[$method])) {
-                $handler = $routeMethod[$method];
+        try {
+            if (isset($this->routes[$uri])) {
+                $routeMethod = $this->routes[$uri];
+                if (isset($routeMethod[$method])) {
+                    $handler = $routeMethod[$method];
 
-                $class = $handler['class'];
-                $function = $handler['method'];
+                    $class = $handler['class'];
+                    $function = $handler['method'];
 
-                if (isset($handler['request'])) {
-                    $requestClass = $handler['request'];
-                    $request = new $requestClass($method, $uri, headers_list(), $_POST);
+                    if (isset($handler['request'])) {
+                        $requestClass = $handler['request'];
+                        $request = new $requestClass($method, $uri, headers_list(), $_POST);
+                    } else {
+                        $request = new Request($method, $uri, headers_list(), $_POST);
+                    }
+
+                    $obj = $this->container->get($class);
+                    $obj->$function($request);
                 } else {
-                    $request = new Request($method, $uri, headers_list(), $_POST);
+                    echo "$method is not supported for $uri";
                 }
-
-                $obj = $this->container->get($class);
-                $obj->$function($request);
             } else {
-                echo "$method is not supported for $uri";
+                require_once './../View/404.html';
             }
-        } else {
-            require_once './../View/404.html';
+        } catch (Throwable $exception) {
+            $logger = $this->container->get(Logger::class);
+
+            $data = [
+                'message' => 'message: ' . $exception->getMessage(),
+                'file' => 'file: ' . $exception->getFile(),
+                'line' => 'line: ' . $exception->getLine(),
+            ];
+
+            $logger->error('The server cannot process the request: ', $data);
+
+            require_once '../View/500.html';
         }
     }
 

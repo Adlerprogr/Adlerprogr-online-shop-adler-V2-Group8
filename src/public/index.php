@@ -13,9 +13,6 @@ use Request\LoginRequest;
 use Request\OrderRequest;
 use Request\RegistrationRequest;
 use Request\UserProductRequest;
-use Service\Authentication\AuthenticationInterfaceService;
-use Service\CartService;
-use Service\OrderService;
 
 require_once './../Core/Autoloader.php';
 
