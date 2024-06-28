@@ -148,3 +148,21 @@ message: count(): Argument #1 ($value) must be of type Countable|array, null giv
 file: /var/www/html/src/View/cart.php
 line: 57
 
+The server cannot process the request: 
+date: 2024/06/24 08:28:54
+message: Service\Authentication\CookieAuthenticationInterfaceService::sessionOrCookie(): Return value must be of type int, null returned
+file: /var/www/html/src/Service/Authentication/CookieAuthenticationInterfaceService.php
+line: 61
+
+The server cannot process the request: 
+date: 2024/06/24 14:19:31
+message: Service\Authentication\CookieAuthenticationInterfaceService::sessionOrCookie(): Return value must be of type int, null returned
+file: /var/www/html/src/Service/Authentication/CookieAuthenticationInterfaceService.php
+line: 61
+
+The server cannot process the request: 
+date: 2024/06/24 17:38:39
+message: Service\Authentication\CookieAuthenticationInterfaceService::sessionOrCookie(): Return value must be of type int, null returned
+file: /var/www/html/src/Service/Authentication/CookieAuthenticationInterfaceService.php
+line: 61
+

@@ -39,6 +39,12 @@ class OrderController
             $userId = $this->authenticationService->sessionOrCookie();
 
             $this->orderService->create($userId, $arr);
+            /// Добавить сюда try/cath чтобы при успешном выполнении оформления заказа переходить на главную страницу
+            /// if ($result) {
+            //            header("Location: /main");
+            //        } else {
+            //            echo 'Login or password not valid';
+            //        }
         }
 
         require_once './../View/order.php';

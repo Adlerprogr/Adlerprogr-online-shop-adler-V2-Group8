@@ -66,5 +66,10 @@ return [
         $userRepository = $container->get(UserRepository::class);
 
         return new Service\Authentication\CookieAuthenticationInterfaceService($userRepository);
+    },
+
+    // Logger
+    \Core\LoggerInterface::class => function (\Core\Container $container) {
+        return new \Core\Logger();
     }
 ];

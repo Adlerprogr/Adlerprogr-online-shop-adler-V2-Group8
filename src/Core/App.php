@@ -45,7 +45,7 @@ class App
                 require_once './../View/404.html';
             }
         } catch (Throwable $exception) {
-            $logger = $this->container->get(Logger::class);
+            $logger = $this->container->get(LoggerInterface::class);
 
             $data = [
                 'message' => 'message: ' . $exception->getMessage(),
