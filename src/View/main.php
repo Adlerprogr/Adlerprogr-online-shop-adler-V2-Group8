@@ -70,7 +70,7 @@
                         <a href="#x" class="products__link">
 
                             <div class="product-data">
-                                <div class="product-data__price"><?php echo $product->getPrice(); ?></div>
+                                <div class="product-data__price"><?php echo $product->getPrice() . ' ₽'; ?></div>
                                 <h3 class="product-data__name"><?php echo $product->getName(); ?></h3>
                                 <h3 class="product-data__description"><?php echo $product->getDescription(); ?></h3>
                             </div>
@@ -116,6 +116,12 @@
 
                                 </div>
                             </td>
+
+                            <form name='comments' action="/comments" method="POST">
+                                <input type="hidden" name="product_id" placeholder="Product ID" required="required" value="<?php echo $product->getId(); ?>" />
+
+                                <button id="button1" type="submit">Comments</button>
+                            </form>
 
                         </a>
 
@@ -217,6 +223,41 @@
         top: 0;
         border-radius: 10px;
     }
+
+    /*comments*/
+    /*body {*/
+    /*    margin: 0;*/
+    /*    font-family: Calibri;*/
+    /*    text-align: center;*/
+    /*    background-image: url('http://subtlepatterns.subtlepatterns.netdna-cdn.com/patterns/stressed_linen.png');*/
+    /*}*/
+
+    #button1 {
+        width: 150px;
+        height: 30px;
+        display: inline-block;
+        margin: 1em 0 0 0;
+        padding: 0.2em 2.2em;
+        font-size: 1em;
+        background: rgba(255,255,255,0.07);
+        color: rgba(0,0,0,0.7);
+        text-shadow: 1px 1px 0 rgba(255,255,255,0.1);
+        text-decoration: none;
+        border: solid 1px rgba(20,20,20,1);
+        border-radius: 10px;
+        box-shadow: inset 1px 1px 1px rgba(255,255,255,0.05), inset 0 0 35px rgba(0,0,0,0.6), 0 5px 5px -4px rgba(0,0,0,0.8);
+    }
+
+    #button1:hover {
+        background: rgba(255,255,255,0.09);
+    }
+
+    #button1:active {
+        position: relative;
+        top: 5px;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,0.4), inset 0 0 35px rgba(0,0,0,0.6), 0 1px 1px rgba(255,255,255,0.1), inset 0 6px 4px rgba(0,0,0,0.4);
+    }
+    /*stop*/
 
     /*Начало стиля кнопок + и -*/
     .quantity_inner * {

@@ -5,12 +5,12 @@ namespace Entity;
 class OrderProduct
 {
     private int $id;
-    private int $user_id;
-    private int $product_id;
+    private User $user_id;
+    private Product $product_id;
     private int $quantity;
-    private int $order_id;
+    private Order $order_id;
 
-    public function __construct(int $id, int $user_id, int $product_id, int $quantity, int $order_id)
+    public function __construct(int $id, User $user_id, Product $product_id, int $quantity, Order $order_id)
     {
         $this->id = $id;
         $this->user_id = $user_id;
@@ -29,7 +29,7 @@ class OrderProduct
         $this->id = $id;
     }
 
-    public function getUserId(): int
+    public function getUserId(): User
     {
         return $this->user_id;
     }
@@ -39,7 +39,7 @@ class OrderProduct
         $this->user_id = $user_id;
     }
 
-    public function getProductId(): int
+    public function getProductId(): Product
     {
         return $this->product_id;
     }
@@ -59,7 +59,7 @@ class OrderProduct
         $this->quantity = $quantity;
     }
 
-    public function getOrderId(): int
+    public function getOrderId(): Order
     {
         return $this->order_id;
     }

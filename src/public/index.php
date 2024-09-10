@@ -1,5 +1,6 @@
 <?php
 
+use Controller\CommentsController;
 use Core\App;
 use Core\Autoloader;
 use Core\Container;
@@ -9,6 +10,7 @@ use Controller\OrderController;
 use Controller\UserController;
 use Controller\UserProductController;
 use Request\CartRequest;
+use Request\CommentsRequest;
 use Request\LoginRequest;
 use Request\OrderRequest;
 use Request\RegistrationRequest;
@@ -44,5 +46,8 @@ $app->post('/plus-product', CartController::class, 'addProductCart', CartRequest
 
 $app->get('/order', OrderController::class, 'getOrder');
 $app->post('/order', OrderController::class, 'postOrder', OrderRequest::class);
+
+$app->post('/comments', CommentsController::class, 'getComments', \Request\CommentsRequest::class);
+$app->post('/comments-product', CommentsController::class, 'postComments', CommentsRequest::class);
 
 $app->run();

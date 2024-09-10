@@ -22,15 +22,16 @@ class UserProductRepository extends Repository
 
     public function checkProduct(int $userId, int $productId): UserProduct|null
     {
-        $stmt = self::getPdo()->prepare("SELECT 
-        up.id AS id, up.quantity,
-        u.id AS user_id, u.first_name, u.last_name, u.email, u.password, u.repeat_password, 
-        p.id AS product_id, p.name, p.description, p.price, p.img_url
+        $stmt = self::getPdo()->prepare("
+        SELECT 
+            up.id AS id, up.quantity,
+            u.id AS user_id, u.first_name, u.last_name, u.email, u.password, u.repeat_password, 
+            p.id AS product_id, p.name, p.description, p.price, p.img_url
         FROM user_products up
-        INNER JOIN users u 
-            ON u.id = up.user_id 
-        INNER JOIN products p 
-            ON p.id = up.product_id
+            INNER JOIN users u 
+                ON u.id = up.user_id 
+            INNER JOIN products p 
+                ON p.id = up.product_id
         WHERE u.id = :user_id AND p.id = :product_id
         ");
         $stmt->execute(['user_id' => $userId, 'product_id' => $productId]);
@@ -46,15 +47,16 @@ class UserProductRepository extends Repository
 
     public function productsUserCart($userId): array|null
     {
-        $stmt = self::getPdo()->prepare("SELECT 
-        up.id AS id, up.quantity,
-        u.id AS user_id, u.first_name, u.last_name, u.email, u.password, u.repeat_password, 
-        p.id AS product_id, p.name, p.description, p.price, p.img_url
+        $stmt = self::getPdo()->prepare("
+        SELECT 
+            up.id AS id, up.quantity,
+            u.id AS user_id, u.first_name, u.last_name, u.email, u.password, u.repeat_password, 
+            p.id AS product_id, p.name, p.description, p.price, p.img_url
         FROM user_products up
-        INNER JOIN users u 
-            ON u.id = up.user_id 
-        INNER JOIN products p 
-            ON p.id = up.product_id
+            INNER JOIN users u 
+                ON u.id = up.user_id 
+            INNER JOIN products p 
+                ON p.id = up.product_id
         WHERE u.id = :user_id
         ");
         $stmt->execute(['user_id' => $userId]);
