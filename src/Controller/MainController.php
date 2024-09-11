@@ -2,7 +2,7 @@
 
 namespace Controller;
 
-use Service\Authentication\AuthenticationInterfaceService;
+use Adler\Corepackege\AuthenticationInterfaceService;
 use Repository\ProductRepository;
 use Repository\UserProductRepository;
 

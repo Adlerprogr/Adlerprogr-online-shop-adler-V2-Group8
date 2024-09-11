@@ -2,6 +2,7 @@
 
 namespace Repository;
 
+use Adler\Corepackege\Repository;
 use Entity\Comments;
 use Entity\CommentsImage;
 use Entity\Image;

@@ -2,6 +2,7 @@
 
 namespace Repository;
 
+use Adler\Corepackege\Repository;
 use Entity\OrderProduct;
 use Entity\User;
 use Entity\Product;

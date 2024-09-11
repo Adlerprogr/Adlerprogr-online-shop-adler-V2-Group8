@@ -2,6 +2,7 @@
 
 namespace Repository;
 
+use Adler\Corepackege\Repository;
 use Entity\Comments;
 use Entity\Product;
 use Entity\User;

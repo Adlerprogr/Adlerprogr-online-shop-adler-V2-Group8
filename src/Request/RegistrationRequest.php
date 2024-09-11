@@ -3,6 +3,7 @@
 namespace Request;
 
 use Repository\UserRepository;
+use Adler\Corepackege\Request;
 
 class RegistrationRequest extends Request
 {

@@ -2,6 +2,8 @@
 
 namespace Repository;
 
+use Adler\Corepackege\Repository;
+
 class OrderRepository extends Repository
 {
     public function createOrder(string $email, int $phone, string $name, string $address, string $city, string $postal_code, string $country): void

@@ -2,6 +2,7 @@
 
 namespace Repository;
 
+use Adler\Corepackege\Repository;
 use Entity\Image;
 
 class ImageRepository extends Repository

@@ -5,7 +5,7 @@ namespace Service\Authentication;
 use Entity\User;
 use Repository\UserRepository;
 
-class SessionAuthenticationService
+class SessionAuthenticationService implements \Adler\Corepackege\AuthenticationInterfaceService
 {
     private UserRepository $userRepository;
 

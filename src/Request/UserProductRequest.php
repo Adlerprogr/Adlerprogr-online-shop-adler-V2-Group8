@@ -4,6 +4,7 @@ namespace Request;
 
 use Repository\ProductRepository;
 use Repository\UserRepository;
+use Adler\Corepackege\Request;
 
 class UserProductRequest extends Request
 {

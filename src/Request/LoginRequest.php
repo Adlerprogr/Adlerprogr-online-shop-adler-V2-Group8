@@ -2,6 +2,8 @@
 
 namespace Request;
 
+use Adler\Corepackege\Request;
+
 class LoginRequest extends Request
 {
     public function getEmail()

@@ -1,5 +1,9 @@
 <?php
 
+use Adler\Corepackege\Container;
+use Adler\Corepackege\LoggerInterface;
+use Adler\Corepackege\Logger;
+use Adler\Corepackege\AuthenticationInterfaceService;
 use Controller\CartController;
 use Controller\MainController;
 use Controller\OrderController;
@@ -19,41 +23,41 @@ use Service\OrderService;
 
 return [
     // Controller
-    CartController::class => function (\Core\Container $container) {
-        $authenticationService = $container->get(\Service\Authentication\AuthenticationInterfaceService::class);
+    CartController::class => function (Container $container) {
+        $authenticationService = $container->get(AuthenticationInterfaceService::class);
         $cartService = $container->get(\Service\CartService::class);
         $userProductRepository = $container->get(UserProductRepository::class);
 
         return new CartController($authenticationService , $cartService, $userProductRepository);
     },
-    MainController::class => function (\Core\Container $container) {
-        $authenticationService = $container->get(\Service\Authentication\AuthenticationInterfaceService::class);
+    MainController::class => function (Container $container) {
+        $authenticationService = $container->get(AuthenticationInterfaceService::class);
         $productRepository = $container->get(ProductRepository::class);
         $userProductRepository = $container->get(UserProductRepository::class);
 
         return new MainController($authenticationService , $productRepository, $userProductRepository);
     },
-    OrderController::class => function (\Core\Container $container) {
-        $authenticationService = $container->get(\Service\Authentication\AuthenticationInterfaceService::class);
+    OrderController::class => function (Container $container) {
+        $authenticationService = $container->get(AuthenticationInterfaceService::class);
         $orderService = $container->get(OrderService::class);
 
         return new OrderController($authenticationService , $orderService);
     },
-    UserController::class => function (\Core\Container $container) {
-        $authenticationService = $container->get(\Service\Authentication\AuthenticationInterfaceService::class);
+    UserController::class => function (Container $container) {
+        $authenticationService = $container->get(AuthenticationInterfaceService::class);
         $userRepository = $container->get(UserRepository::class);
 
         return new UserController($authenticationService ,$userRepository);
     },
-    UserProductController::class => function (\Core\Container $container) {
-        $authenticationService = $container->get(\Service\Authentication\AuthenticationInterfaceService::class);
+    UserProductController::class => function (Container $container) {
+        $authenticationService = $container->get(AuthenticationInterfaceService::class);
         $cartService = $container->get(\Service\CartService::class);
         $productRepository = $container->get(ProductRepository::class);
 
         return new UserProductController($authenticationService , $cartService, $productRepository);
     },
-    \Controller\CommentsController::class => function (\Core\Container $container) {
-        $authenticationService = $container->get(\Service\Authentication\AuthenticationInterfaceService::class);
+    \Controller\CommentsController::class => function (Container $container) {
+        $authenticationService = $container->get(AuthenticationInterfaceService::class);
         $productRepository = $container->get(ProductRepository::class);
         $userRepository = $container->get(UserRepository::class);
         $commentsRepository = $container->get(CommentsRepository::class);
@@ -66,31 +70,31 @@ return [
     },
 
     // Service
-    CartService::class => function (\Core\Container $container) {
+    CartService::class => function (Container $container) {
         $userProductRepository = $container->get(UserProductRepository::class);
 
         return new CartService($userProductRepository);
     },
-    OrderService::class => function (\Core\Container $container) {
+    OrderService::class => function (Container $container) {
         $orderRepository = $container->get(OrderRepository::class);
         $orderProductRepository = $container->get(OrderProductRepository::class);
         $userProductRepository = $container->get(UserProductRepository::class);
 
         return new OrderService($container, $orderRepository, $orderProductRepository, $userProductRepository);
     },
-    \Service\Authentication\AuthenticationInterfaceService::class => function (\Core\Container $container) {
+    AuthenticationInterfaceService::class => function (Container $container) {
         $userRepository = $container->get(UserRepository::class);
 
         return new Service\Authentication\CookieAuthenticationInterfaceService($userRepository);
     },
-    ImageService::class => function (\Core\Container $container) {
+    ImageService::class => function (Container $container) {
         $imageRepository = $container->get(ImageRepository::class);
 
         return new ImageService($imageRepository);
     },
 
     // Logger
-    \Core\LoggerInterface::class => function (\Core\Container $container) {
-        return new \Core\Logger();
+    LoggerInterface::class => function (Container $container) {
+        return new Logger();
     }
 ];

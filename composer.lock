@@ -1,0 +1,55 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "73a7d71214cf243e5b105248309a0647",
+    "packages": [
+        {
+            "name": "adler/corepackege",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Adlerprogr/Project-1_Group_8_composer_core.git",
+                "reference": "b66c7f5fd762827d15e0b1f8483e1135ed831cc5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Adlerprogr/Project-1_Group_8_composer_core/zipball/b66c7f5fd762827d15e0b1f8483e1135ed831cc5",
+                "reference": "b66c7f5fd762827d15e0b1f8483e1135ed831cc5",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Adler\\Corepackege\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Adlerprogr",
+                    "email": "zhargalovald@yandex.ru"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/Adlerprogr/Project-1_Group_8_composer_core/issues",
+                "source": "https://github.com/Adlerprogr/Project-1_Group_8_composer_core/tree/main"
+            },
+            "time": "2024-09-11T17:25:16+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "adler/corepackege": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.2.0"
+}

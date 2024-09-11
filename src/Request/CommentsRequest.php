@@ -2,6 +2,8 @@
 
 namespace Request;
 
+use Adler\Corepackege\Request;
+
 class CommentsRequest extends Request
 {
     public function getProductId()

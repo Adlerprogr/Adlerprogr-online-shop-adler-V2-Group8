@@ -3,6 +3,7 @@
 namespace Request;
 
 use Repository\ProductRepository;
+use Adler\Corepackege\Request;
 
 class CartRequest extends Request
 {

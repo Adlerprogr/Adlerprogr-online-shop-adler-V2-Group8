@@ -1,9 +1,12 @@
 <?php
 
 use Controller\CommentsController;
-use Core\App;
-use Core\Autoloader;
-use Core\Container;
+//use Core\App;
+use Adler\Corepackege\App;
+//use Core\Autoloader;
+use Adler\Corepackege\Autoloader;
+//use Core\Container;
+use Adler\Corepackege\Container;
 use Controller\CartController;
 use Controller\MainController;
 use Controller\OrderController;
@@ -16,7 +19,7 @@ use Request\OrderRequest;
 use Request\RegistrationRequest;
 use Request\UserProductRequest;
 
-require_once './../Core/Autoloader.php';
+require_once './../../vendor/autoload.php';
 
 $dir = dirname(__DIR__);
 Autoloader::registration($dir);

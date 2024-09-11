@@ -8,7 +8,7 @@ use Repository\ImageRepository;
 use Repository\OrderProductRepository;
 use Repository\UserRepository;
 use Request\CommentsRequest;
-use Service\Authentication\AuthenticationInterfaceService;
+use Adler\Corepackege\AuthenticationInterfaceService;
 use Repository\ProductRepository;
 use Service\ImageService;
 

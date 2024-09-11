@@ -5,7 +5,7 @@ namespace Service\Authentication;
 use Entity\User;
 use Repository\UserRepository;
 
-class CookieAuthenticationInterfaceService implements AuthenticationInterfaceService
+class CookieAuthenticationInterfaceService implements \Adler\Corepackege\AuthenticationInterfaceService
 {
     private UserRepository $userRepository;
 
