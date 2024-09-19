@@ -14,7 +14,7 @@ class ImageService
     }
     public function uploadImg($file, $name): void
     {
-        copy($file['tmp_name'], './../public/Image/' . $name);
+        copy($file['tmp_name'], './../public/image/' . $name);
     }
     public function addImage(): void
     {
@@ -22,7 +22,7 @@ class ImageService
         if (isset($file)) {
             $name = mt_rand(0, 1000) . $file['name'];
             $this->uploadImg($file, $name);
-            $path='http://localhost:8080/src/public/image/';
+            $path='http://localhost:80/image/';
             $image = $path . $name;
             $this->imageRepository->create($image);
         }
